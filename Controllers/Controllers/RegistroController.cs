@@ -5,7 +5,7 @@ using System.Net;
 using System.Web.Http;
 using ClasesData;
 using Controllers.Models; // Asegúrate de tener la referencia correcta a tu modelo de datos
-
+/*
 namespace Controllers.Controllers
 {
     public class RegistroController : ApiController
@@ -59,3 +59,4 @@ namespace Controllers.Controllers
 
     }
 }
+*/

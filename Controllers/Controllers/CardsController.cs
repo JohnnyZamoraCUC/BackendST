@@ -10,12 +10,12 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-
+/*
 namespace Controllers.Controllers
 {
     public class CardsController : ApiController
     {
-        private tiusr26pl_cardsEntities Cartitas = new tiusr26pl_cardsEntities();
+        private tiusr26pl_ProyectoSitiosEntities Cartitas = new tiusr26pl_ProyectoSitiosEntities();
 
         public CardsController()
         {
@@ -56,3 +56,4 @@ namespace Controllers.Controllers
 
     }
 }
+*/

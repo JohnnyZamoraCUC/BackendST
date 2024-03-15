@@ -5,10 +5,9 @@ using System.Web;
 
 namespace Controllers.Models
 {
-    public class Pregunta
+    public class TokenModel
     {
-
-        public int PreguntaID { get; set; }
-        public string Preguntas { get; set; }
+        public string Correo { get; set; }
+        public string Token { get; set; }
     }
 }

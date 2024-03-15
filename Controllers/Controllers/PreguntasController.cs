@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web.Http;
 using ClasesData;
 using Controllers.Models;
-
+/*
 namespace Controllers.Controllers
 {
     public class PreguntasApiController : ApiController
@@ -97,3 +97,4 @@ namespace Controllers.Controllers
 
     }
 }
+*/
