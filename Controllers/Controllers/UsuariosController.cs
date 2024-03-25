@@ -25,8 +25,8 @@ namespace Controllers.Controllers
         {
             try
             {
-                var AllUsers = UsuarioEntidad.Usuarios.ToList();
-                return Ok(AllUsers);
+                var AllLaberls = UsuarioEntidad.Usuarios.ToList();
+                return Ok(AllLaberls);
             }
             catch (Exception ex)
             {
@@ -36,13 +36,15 @@ namespace Controllers.Controllers
             }
         }
 
+
+
         [HttpPost]
         [Route("api/Usuarios/Login")]
         public IHttpActionResult ValidarLogin([FromBody] Usuario login)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Datos de inicio de sesión no válidos");
+                return BadRequest();
             }
 
             var usuario = UsuarioEntidad.Usuarios.FirstOrDefault(u => u.Correo == login.Correo);
@@ -61,15 +63,12 @@ namespace Controllers.Controllers
             usuario.CodigoVerificacion = token;
             UsuarioEntidad.Configuration.ValidateOnSaveEnabled = false;
             UsuarioEntidad.SaveChanges();
-            UsuarioEntidad.Configuration.ValidateOnSaveEnabled = true; // Vuelve a habilitar la validación después de guardar
+            UsuarioEntidad.Configuration.ValidateOnSaveEnabled = true;
 
             EnviarToken(usuario.Correo, token);
             var tokenModel = new TokenModel { Correo = usuario.Correo, Token = token };
-            return Ok(tokenModel);
-            /*
-            var tokenModel = new TokenModel { Correo = usuario.Correo, Token = token };
-            return ValidarDobleFactor(tokenModel);
-            */
+            return Unauthorized();
+            
             
         }
 
@@ -92,7 +91,7 @@ namespace Controllers.Controllers
             usuario.CodigoVerificacion = null;
             UsuarioEntidad.SaveChanges();
 
-            return Ok("Token de doble factor válido");
+            return Ok();
         }
 
         private string GenerarTokenDobleFactor()

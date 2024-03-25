@@ -162,6 +162,9 @@
     <Compile Include="InstruccionesRodaje.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Labels.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Mercancias.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

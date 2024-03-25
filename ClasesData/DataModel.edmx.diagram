@@ -147,6 +147,7 @@
         <AssociationConnector Association="tiusr26pl_ProyectoSitiosModel.FK__Usuarios__Rol__2BFE89A6" ManuallyRouted="false" />
         <AssociationConnector Association="tiusr26pl_ProyectoSitiosModel.FK__Tripulaci__IDNum__6D0D32F4" ManuallyRouted="false" />
         <AssociationConnector Association="tiusr26pl_ProyectoSitiosModel.FK__Tripulaci__IDNum__6EC0713C" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="tiusr26pl_ProyectoSitiosModel.Labels" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

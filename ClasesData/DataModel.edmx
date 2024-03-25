@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="tiusr26pl_ProyectoSitiosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="tiusr26pl_ProyectoSitiosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aerolineas">
           <Key>
             <PropertyRef Name="IdAerolinea" />
@@ -343,6 +343,14 @@
           <Property Name="Operacion_rodaje_id" Type="int" Nullable="false" />
           <Property Name="Instruccion" Type="text" Nullable="false" />
         </EntityType>
+        <EntityType Name="Labels">
+          <Key>
+            <PropertyRef Name="IdLabel" />
+          </Key>
+          <Property Name="IdLabel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="Mercancias">
           <Key>
             <PropertyRef Name="IdMercancia" />
@@ -542,8 +550,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Rol" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Rol" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="SecuenciaAterrizaje">
           <Key>
@@ -609,7 +617,7 @@
           <Property Name="Contrasena" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Correo" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Rol" Type="int" Nullable="false" />
-          <Property Name="CodigoVerificacion" Type="varchar" MaxLength="6" />
+          <Property Name="CodigoVerificacion" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Vuelos">
           <Key>
@@ -1630,6 +1638,7 @@
           <EntitySet Name="HistorialVuelos" EntityType="Self.HistorialVuelos" Schema="Agente" store:Type="Tables" />
           <EntitySet Name="InformacionMeteorologica" EntityType="Self.InformacionMeteorologica" Schema="Agente" store:Type="Tables" />
           <EntitySet Name="InstruccionesRodaje" EntityType="Self.InstruccionesRodaje" Schema="Agente" store:Type="Tables" />
+          <EntitySet Name="Labels" EntityType="Self.Labels" Schema="Agente" store:Type="Tables" />
           <EntitySet Name="Mercancias" EntityType="Self.Mercancias" Schema="Agente" store:Type="Tables" />
           <EntitySet Name="OperacionesRodaje" EntityType="Self.OperacionesRodaje" Schema="Agente" store:Type="Tables" />
           <EntitySet Name="Paises" EntityType="Self.Paises" Schema="Agente" store:Type="Tables" />
@@ -1984,8 +1993,7 @@
             <End Role="Vuelos" EntitySet="Vuelos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="tiusr26pl_ProyectoSitiosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2645,8 +2653,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Rol1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rol1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuarios__Rol__2BFE89A6" FromRole="Rol" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="SecuenciaAterrizaje">
@@ -2721,7 +2729,7 @@
           <Property Name="Contrasena" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Correo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Rol" Type="Int32" Nullable="false" />
-          <Property Name="CodigoVerificacion" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoVerificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AsignacionDespeguesUsuario" Relationship="Self.FK__Asignacio__IdUsu__2FCF1A8A" FromRole="Usuarios" ToRole="AsignacionDespeguesUsuario" />
           <NavigationProperty Name="Autoridades" Relationship="Self.FK__Autoridad__Cargo__32AB8735" FromRole="Usuarios" ToRole="Autoridades" />
           <NavigationProperty Name="Controladores" Relationship="Self.FK__Controlad__IdUsu__367C1819" FromRole="Usuarios" ToRole="Controladores" />
@@ -4129,7 +4137,16 @@
             <End Role="Vuelos" EntitySet="Vuelos" />
             <End Role="Tripulación" EntitySet="Tripulación" />
           </AssociationSet>
+          <EntitySet Name="Labels" EntityType="tiusr26pl_ProyectoSitiosModel.Labels" />
         </EntityContainer>
+        <EntityType Name="Labels">
+          <Key>
+            <PropertyRef Name="IdLabel" />
+          </Key>
+          <Property Name="IdLabel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4814,6 +4831,15 @@
                 <ScalarProperty Name="HoraSalida" ColumnName="HoraSalida" />
                 <ScalarProperty Name="HoraLlegada" ColumnName="HoraLlegada" />
                 <ScalarProperty Name="DuracionEstimada" ColumnName="DuracionEstimada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Labels">
+            <EntityTypeMapping TypeName="tiusr26pl_ProyectoSitiosModel.Labels">
+              <MappingFragment StoreEntitySet="Labels">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdLabel" ColumnName="IdLabel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -86,5 +86,6 @@ namespace ClasesData
         public virtual DbSet<Tripulación> Tripulación { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Vuelos> Vuelos { get; set; }
+        public virtual DbSet<Labels> Labels { get; set; }
     }
 }
