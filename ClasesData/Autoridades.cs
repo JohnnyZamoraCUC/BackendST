@@ -22,7 +22,7 @@ namespace ClasesData
     
         public int ID { get; set; }
         public string Nombre { get; set; }
-        public string IdUsuario { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
         public string TipoAutoridad { get; set; }
         public string Cargo { get; set; }
     

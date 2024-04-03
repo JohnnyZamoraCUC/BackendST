@@ -12,12 +12,18 @@ namespace ClasesData
     using System;
     using System.Collections.Generic;
     
-    public partial class RegistroEmergencia
+    public partial class TipoVuelo
     {
-        public int IdRegistroEmergencia { get; set; }
-        public Nullable<int> IdEmergencia { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TipoVuelo()
+        {
+            this.Vuelos = new HashSet<Vuelos>();
+        }
+    
+        public int IdTipoVuelo { get; set; }
         public string Descripcion { get; set; }
     
-        public virtual Emergencias Emergencias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vuelos> Vuelos { get; set; }
     }
 }

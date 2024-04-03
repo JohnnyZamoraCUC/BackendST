@@ -16,7 +16,7 @@ namespace ClasesData
     {
         public int Id { get; set; }
         public int IdVuelo { get; set; }
-        public string IdUsuario { get; set; }
+        public int IdUsuario { get; set; }
     
         public virtual Usuarios Usuarios { get; set; }
         public virtual Vuelos Vuelos { get; set; }

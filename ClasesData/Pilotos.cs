@@ -17,18 +17,20 @@ namespace ClasesData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Pilotos()
         {
+            this.Aerolineas = new HashSet<Aerolineas>();
             this.Vuelos = new HashSet<Vuelos>();
         }
     
-        public int ID { get; set; }
+        public int IDPiloto { get; set; }
         public string Nombre { get; set; }
-        public Nullable<int> IdAerolinea { get; set; }
+        public string Apellido { get; set; }
         public string Licencia { get; set; }
         public string Cargo { get; set; }
         public string NivelCertificacion { get; set; }
         public string HorarioTrabajo { get; set; }
     
-        public virtual Aerolineas Aerolineas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Aerolineas> Aerolineas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vuelos> Vuelos { get; set; }
     }

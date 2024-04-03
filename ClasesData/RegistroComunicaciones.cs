@@ -23,7 +23,7 @@ namespace ClasesData
         public int IdRegistroComunicacion { get; set; }
         public Nullable<int> IdComunicacion { get; set; }
         public int IdVuelo { get; set; }
-        public string IdUsuario { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
         public string TipoComunicacion { get; set; }
         public string Contenido { get; set; }
         public System.DateTime FechaHora { get; set; }

@@ -21,27 +21,30 @@ namespace ClasesData
             this.Asientos = new HashSet<Asientos>();
             this.AsignacionDespeguesUsuario = new HashSet<AsignacionDespeguesUsuario>();
             this.AsignacionPistasDespegue = new HashSet<AsignacionPistasDespegue>();
-            this.Aterrizajes = new HashSet<Aterrizajes>();
             this.Emergencias = new HashSet<Emergencias>();
             this.Escalas = new HashSet<Escalas>();
             this.EventosDespegue = new HashSet<EventosDespegue>();
             this.HistorialVuelos = new HashSet<HistorialVuelos>();
             this.Mercancias = new HashSet<Mercancias>();
             this.OperacionesRodaje = new HashSet<OperacionesRodaje>();
-            this.PasajerosVuelos = new HashSet<PasajerosVuelos>();
+            this.Pasajeros = new HashSet<Pasajeros>();
             this.Posiciones = new HashSet<Posiciones>();
             this.PosicionesEstacionamiento = new HashSet<PosicionesEstacionamiento>();
             this.RegistroComunicaciones = new HashSet<RegistroComunicaciones>();
             this.ReporteFinalDespegues = new HashSet<ReporteFinalDespegues>();
-            this.Tripulacion = new HashSet<Tripulacion>();
             this.Tripulación = new HashSet<Tripulación>();
         }
     
         public int IdVuelo { get; set; }
+        public string NumeroVuelo { get; set; }
         public Nullable<int> IdAerolinea { get; set; }
         public Nullable<int> IdAeronave { get; set; }
         public Nullable<int> IdEstadoVuelo { get; set; }
         public Nullable<int> IdPiloto { get; set; }
+        public Nullable<int> IdPrioridad { get; set; }
+        public Nullable<int> IDTipoVuelo { get; set; }
+        public Nullable<int> IDOrigen { get; set; }
+        public Nullable<int> IDDestino { get; set; }
         public string Ruta { get; set; }
         public Nullable<System.DateTime> HoraSalida { get; set; }
         public Nullable<System.DateTime> HoraLlegada { get; set; }
@@ -49,6 +52,8 @@ namespace ClasesData
     
         public virtual Aerolineas Aerolineas { get; set; }
         public virtual Aeronaves Aeronaves { get; set; }
+        public virtual Aeropuertos Aeropuertos { get; set; }
+        public virtual Aeropuertos Aeropuertos1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Aproximaciones> Aproximaciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -57,8 +62,6 @@ namespace ClasesData
         public virtual ICollection<AsignacionDespeguesUsuario> AsignacionDespeguesUsuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AsignacionPistasDespegue> AsignacionPistasDespegue { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Aterrizajes> Aterrizajes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Emergencias> Emergencias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -73,18 +76,18 @@ namespace ClasesData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OperacionesRodaje> OperacionesRodaje { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PasajerosVuelos> PasajerosVuelos { get; set; }
+        public virtual ICollection<Pasajeros> Pasajeros { get; set; }
         public virtual Pilotos Pilotos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Posiciones> Posiciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PosicionesEstacionamiento> PosicionesEstacionamiento { get; set; }
+        public virtual PrioridadesVuelos PrioridadesVuelos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RegistroComunicaciones> RegistroComunicaciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReporteFinalDespegues> ReporteFinalDespegues { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tripulacion> Tripulacion { get; set; }
+        public virtual TipoVuelo TipoVuelo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tripulación> Tripulación { get; set; }
     }

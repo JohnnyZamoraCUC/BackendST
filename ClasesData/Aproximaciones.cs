@@ -17,8 +17,6 @@ namespace ClasesData
         public int IdAproximacion { get; set; }
         public Nullable<int> IdVuelo { get; set; }
         public Nullable<System.DateTime> HoraRegistro { get; set; }
-        public Nullable<decimal> AltitudAproximacion { get; set; }
-        public Nullable<decimal> VelocidadAproximacion { get; set; }
         public Nullable<int> IdInformacionMetereologica { get; set; }
         public Nullable<decimal> DistanciaRestante { get; set; }
         public Nullable<decimal> AnguloDescenso { get; set; }

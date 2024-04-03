@@ -17,12 +17,15 @@ namespace ClasesData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Paises()
         {
+            this.Aerolineas = new HashSet<Aerolineas>();
             this.Ciudades = new HashSet<Ciudades>();
         }
     
         public int IdPais { get; set; }
         public string NombrePais { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Aerolineas> Aerolineas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ciudades> Ciudades { get; set; }
     }

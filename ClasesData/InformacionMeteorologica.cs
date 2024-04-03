@@ -18,7 +18,6 @@ namespace ClasesData
         public InformacionMeteorologica()
         {
             this.Aproximaciones = new HashSet<Aproximaciones>();
-            this.Aterrizajes = new HashSet<Aterrizajes>();
             this.ReporteFinalDespegues = new HashSet<ReporteFinalDespegues>();
             this.SecuenciaAterrizaje = new HashSet<SecuenciaAterrizaje>();
         }
@@ -33,8 +32,6 @@ namespace ClasesData
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Aproximaciones> Aproximaciones { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Aterrizajes> Aterrizajes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReporteFinalDespegues> ReporteFinalDespegues { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -14,16 +14,7 @@ namespace ClasesData
     
     public partial class DesviosRuta
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DesviosRuta()
-        {
-            this.Emergencias = new HashSet<Emergencias>();
-        }
-    
         public int IdDesvioRuta { get; set; }
         public string RutaAsignada { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Emergencias> Emergencias { get; set; }
     }
 }

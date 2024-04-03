@@ -48,6 +48,7 @@ namespace ClasesData
         public virtual DbSet<Emergencias> Emergencias { get; set; }
         public virtual DbSet<Equipaje> Equipaje { get; set; }
         public virtual DbSet<EquipoEmergenciaTierra> EquipoEmergenciaTierra { get; set; }
+        public virtual DbSet<EquiposEmergencia> EquiposEmergencia { get; set; }
         public virtual DbSet<Escalas> Escalas { get; set; }
         public virtual DbSet<EstadoAeronave> EstadoAeronave { get; set; }
         public virtual DbSet<EstadoAproximacion> EstadoAproximacion { get; set; }
@@ -57,11 +58,11 @@ namespace ClasesData
         public virtual DbSet<HistorialVuelos> HistorialVuelos { get; set; }
         public virtual DbSet<InformacionMeteorologica> InformacionMeteorologica { get; set; }
         public virtual DbSet<InstruccionesRodaje> InstruccionesRodaje { get; set; }
+        public virtual DbSet<Labels> Labels { get; set; }
         public virtual DbSet<Mercancias> Mercancias { get; set; }
         public virtual DbSet<OperacionesRodaje> OperacionesRodaje { get; set; }
         public virtual DbSet<Paises> Paises { get; set; }
         public virtual DbSet<Pasajeros> Pasajeros { get; set; }
-        public virtual DbSet<PasajerosVuelos> PasajerosVuelos { get; set; }
         public virtual DbSet<PersonalCarga> PersonalCarga { get; set; }
         public virtual DbSet<PersonalMantenimiento> PersonalMantenimiento { get; set; }
         public virtual DbSet<PersonalOperacionesAeropuerto> PersonalOperacionesAeropuerto { get; set; }
@@ -70,22 +71,23 @@ namespace ClasesData
         public virtual DbSet<Pistas> Pistas { get; set; }
         public virtual DbSet<Posiciones> Posiciones { get; set; }
         public virtual DbSet<PosicionesEstacionamiento> PosicionesEstacionamiento { get; set; }
-        public virtual DbSet<PrioridadAterrizaje> PrioridadAterrizaje { get; set; }
         public virtual DbSet<PrioridadesAterrizajes> PrioridadesAterrizajes { get; set; }
         public virtual DbSet<PrioridadesVuelos> PrioridadesVuelos { get; set; }
+        public virtual DbSet<Procedimientos> Procedimientos { get; set; }
         public virtual DbSet<PuertasEmbarqueDesembarque> PuertasEmbarqueDesembarque { get; set; }
+        public virtual DbSet<Radar> Radar { get; set; }
         public virtual DbSet<RegistroComunicaciones> RegistroComunicaciones { get; set; }
-        public virtual DbSet<RegistroEmergencia> RegistroEmergencia { get; set; }
         public virtual DbSet<ReporteFinalDespegues> ReporteFinalDespegues { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
+        public virtual DbSet<RolPaginaAcceso> RolPaginaAcceso { get; set; }
         public virtual DbSet<SecuenciaAterrizaje> SecuenciaAterrizaje { get; set; }
         public virtual DbSet<Taxiways> Taxiways { get; set; }
         public virtual DbSet<TipoAproximacion> TipoAproximacion { get; set; }
         public virtual DbSet<TipoEmergencia> TipoEmergencia { get; set; }
+        public virtual DbSet<TipoVuelo> TipoVuelo { get; set; }
         public virtual DbSet<Tripulacion> Tripulacion { get; set; }
         public virtual DbSet<Tripulación> Tripulación { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Vuelos> Vuelos { get; set; }
-        public virtual DbSet<Labels> Labels { get; set; }
     }
 }

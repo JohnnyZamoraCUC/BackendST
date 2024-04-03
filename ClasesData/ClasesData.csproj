@@ -83,7 +83,6 @@
     <Compile Include="Ciudades.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Comunicaciones.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -135,6 +134,9 @@
     <Compile Include="EquipoEmergenciaTierra.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EquiposEmergencia.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Escalas.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -177,9 +179,6 @@
     <Compile Include="Pasajeros.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PasajerosVuelos.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="PersonalCarga.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -204,29 +203,32 @@
     <Compile Include="PosicionesEstacionamiento.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PrioridadAterrizaje.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="PrioridadesAterrizajes.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PrioridadesVuelos.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Procedimientos.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PuertasEmbarqueDesembarque.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="RegistroComunicaciones.cs">
+    <Compile Include="Radar.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="RegistroEmergencia.cs">
+    <Compile Include="RegistroComunicaciones.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ReporteFinalDespegues.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Rol.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RolPaginaAcceso.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SecuenciaAterrizaje.cs">
@@ -239,6 +241,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoEmergencia.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoVuelo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Tripulacion.cs">

@@ -15,7 +15,7 @@ namespace ClasesData
     public partial class PersonalServiciosTierra
     {
         public int IdServiciosTierra { get; set; }
-        public string IdUsuario { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
     
         public virtual Usuarios Usuarios { get; set; }
     }

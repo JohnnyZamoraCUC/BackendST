@@ -17,7 +17,7 @@ namespace ClasesData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PrioridadesVuelos()
         {
-            this.Aterrizajes = new HashSet<Aterrizajes>();
+            this.Vuelos = new HashSet<Vuelos>();
         }
     
         public int IdPrioridad { get; set; }
@@ -25,6 +25,6 @@ namespace ClasesData
         public string Descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Aterrizajes> Aterrizajes { get; set; }
+        public virtual ICollection<Vuelos> Vuelos { get; set; }
     }
 }

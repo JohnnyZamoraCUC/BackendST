@@ -12,19 +12,21 @@ namespace ClasesData
     using System;
     using System.Collections.Generic;
     
-    public partial class PrioridadAterrizaje
+    public partial class EquiposEmergencia
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PrioridadAterrizaje()
+        public EquiposEmergencia()
         {
-            this.Emergencias = new HashSet<Emergencias>();
+            this.Procedimientos = new HashSet<Procedimientos>();
         }
     
-        public int IdPrioridadAterrizaje { get; set; }
-        public string Prioridad { get; set; }
-        public Nullable<System.DateTime> Tiempo { get; set; }
+        public int IdEquipoEmergencia { get; set; }
+        public Nullable<int> IdTipoEmergencia { get; set; }
+        public string NombreEquipo { get; set; }
+        public string Descripcion { get; set; }
     
+        public virtual TipoEmergencia TipoEmergencia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Emergencias> Emergencias { get; set; }
+        public virtual ICollection<Procedimientos> Procedimientos { get; set; }
     }
 }

@@ -18,21 +18,23 @@ namespace ClasesData
         public Aerolineas()
         {
             this.Aeronaves = new HashSet<Aeronaves>();
-            this.Pilotos = new HashSet<Pilotos>();
             this.Vuelos = new HashSet<Vuelos>();
         }
     
         public int IdAerolinea { get; set; }
         public string NombreAerolinea { get; set; }
-        public string PaisOperacion { get; set; }
         public string CodigoIATA { get; set; }
         public string CodigoICAO { get; set; }
         public Nullable<System.DateTime> FechaFundacion { get; set; }
+        public Nullable<int> IDPaisOperacion { get; set; }
+        public Nullable<int> IDPilotoA { get; set; }
+        public Nullable<int> IDTripulacionA { get; set; }
     
+        public virtual Paises Paises { get; set; }
+        public virtual Pilotos Pilotos { get; set; }
+        public virtual Tripulacion Tripulacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Aeronaves> Aeronaves { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pilotos> Pilotos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vuelos> Vuelos { get; set; }
     }

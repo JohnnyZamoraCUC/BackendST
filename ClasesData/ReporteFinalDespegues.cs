@@ -17,7 +17,7 @@ namespace ClasesData
         public int Id { get; set; }
         public int IdVuelo { get; set; }
         public int IdPista { get; set; }
-        public string IdUsuario { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
         public int IdInformacionMeteorologica { get; set; }
         public System.DateTime FechaHora { get; set; }
         public string Descripcion { get; set; }

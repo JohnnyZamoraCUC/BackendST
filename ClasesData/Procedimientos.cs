@@ -12,11 +12,16 @@ namespace ClasesData
     using System;
     using System.Collections.Generic;
     
-    public partial class PersonalCarga
+    public partial class Procedimientos
     {
-        public int IdCarga { get; set; }
-        public Nullable<int> IdUsuario { get; set; }
+        public int IdProcedimiento { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public string Pasos { get; set; }
+        public string EquipoNecesario { get; set; }
+        public string Observaciones { get; set; }
+        public Nullable<int> IdEquipoEmergencia { get; set; }
     
-        public virtual Usuarios Usuarios { get; set; }
+        public virtual EquiposEmergencia EquiposEmergencia { get; set; }
     }
 }

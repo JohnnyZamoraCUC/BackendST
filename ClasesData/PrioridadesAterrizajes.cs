@@ -17,14 +17,16 @@ namespace ClasesData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PrioridadesAterrizajes()
         {
-            this.Aterrizajes = new HashSet<Aterrizajes>();
+            this.Emergencias = new HashSet<Emergencias>();
+            this.SecuenciaAterrizaje = new HashSet<SecuenciaAterrizaje>();
         }
     
-        public int IdPrioridad { get; set; }
-        public string Nombre { get; set; }
+        public string IdPrioridadAterrizaje { get; set; }
         public string Descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Aterrizajes> Aterrizajes { get; set; }
+        public virtual ICollection<Emergencias> Emergencias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SecuenciaAterrizaje> SecuenciaAterrizaje { get; set; }
     }
 }

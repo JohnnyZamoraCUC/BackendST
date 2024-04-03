@@ -14,6 +14,12 @@ namespace ClasesData
     
     public partial class SecuenciaAterrizaje
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SecuenciaAterrizaje()
+        {
+            this.Aterrizajes = new HashSet<Aterrizajes>();
+        }
+    
         public string IDSecuencia { get; set; }
         public int IdAeronave { get; set; }
         public string ETA { get; set; }
@@ -22,6 +28,9 @@ namespace ClasesData
         public string Prioridad { get; set; }
     
         public virtual Aeronaves Aeronaves { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Aterrizajes> Aterrizajes { get; set; }
         public virtual InformacionMeteorologica InformacionMeteorologica { get; set; }
+        public virtual PrioridadesAterrizajes PrioridadesAterrizajes { get; set; }
     }
 }

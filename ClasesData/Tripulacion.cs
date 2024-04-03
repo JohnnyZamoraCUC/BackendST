@@ -14,12 +14,26 @@ namespace ClasesData
     
     public partial class Tripulacion
     {
-        public int IdMiembroTripulación { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tripulacion()
+        {
+            this.Aerolineas = new HashSet<Aerolineas>();
+        }
+    
+        public int IdMiembroTripulacion { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Puesto { get; set; }
-        public Nullable<int> IDNumeroVuelo { get; set; }
+        public Nullable<int> Edad { get; set; }
+        public string Genero { get; set; }
+        public string Cedula { get; set; }
+        public Nullable<System.DateTime> FechaContratacion { get; set; }
+        public string ExperienciaLaboral { get; set; }
+        public string HistorialVuelos { get; set; }
+        public string HorarioTrabajo { get; set; }
+        public string Certificaciones { get; set; }
     
-        public virtual Vuelos Vuelos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Aerolineas> Aerolineas { get; set; }
     }
 }

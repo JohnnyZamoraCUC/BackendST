@@ -18,12 +18,16 @@ namespace ClasesData
         public TipoEmergencia()
         {
             this.Emergencias = new HashSet<Emergencias>();
+            this.EquiposEmergencia = new HashSet<EquiposEmergencia>();
         }
     
-        public int idTipoEmergencia { get; set; }
+        public int IdTipoEmergencia { get; set; }
         public string Tipo { get; set; }
+        public string Descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Emergencias> Emergencias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EquiposEmergencia> EquiposEmergencia { get; set; }
     }
 }

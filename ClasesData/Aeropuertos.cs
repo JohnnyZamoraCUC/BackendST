@@ -21,13 +21,15 @@ namespace ClasesData
             this.Escalas = new HashSet<Escalas>();
             this.Pistas = new HashSet<Pistas>();
             this.PuertasEmbarqueDesembarque = new HashSet<PuertasEmbarqueDesembarque>();
+            this.Radar = new HashSet<Radar>();
             this.Taxiways = new HashSet<Taxiways>();
+            this.Vuelos = new HashSet<Vuelos>();
+            this.Vuelos1 = new HashSet<Vuelos>();
         }
     
         public int IdAeropuerto { get; set; }
         public string Nombre { get; set; }
         public Nullable<int> CiudadID { get; set; }
-        public string Pais { get; set; }
         public string CodigoIATA { get; set; }
         public string CodigoICAO { get; set; }
         public Nullable<int> CapacidadAviones { get; set; }
@@ -45,6 +47,12 @@ namespace ClasesData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PuertasEmbarqueDesembarque> PuertasEmbarqueDesembarque { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Radar> Radar { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Taxiways> Taxiways { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vuelos> Vuelos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vuelos> Vuelos1 { get; set; }
     }
 }

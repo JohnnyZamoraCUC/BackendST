@@ -12,13 +12,15 @@ namespace ClasesData
     using System;
     using System.Collections.Generic;
     
-    public partial class PasajerosVuelos
+    public partial class Radar
     {
-        public int IdRelacion { get; set; }
-        public Nullable<int> IdPasajero { get; set; }
-        public Nullable<int> IdVuelo { get; set; }
+        public int IdRadar { get; set; }
+        public string Nombre { get; set; }
+        public decimal Latitud { get; set; }
+        public decimal Longitud { get; set; }
+        public decimal RadioVuelo { get; set; }
+        public Nullable<int> IdAeropuerto { get; set; }
     
-        public virtual Pasajeros Pasajeros { get; set; }
-        public virtual Vuelos Vuelos { get; set; }
+        public virtual Aeropuertos Aeropuertos { get; set; }
     }
 }

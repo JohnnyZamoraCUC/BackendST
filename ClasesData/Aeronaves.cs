@@ -33,6 +33,7 @@ namespace ClasesData
         public Nullable<System.DateTime> FechaUltimoMantenimiento { get; set; }
         public string TipoMotor { get; set; }
         public decimal Longitud { get; set; }
+        public Nullable<decimal> Latitud { get; set; }
         public decimal Envergadura { get; set; }
         public decimal Altura { get; set; }
         public int IdEstadoAeronave { get; set; }

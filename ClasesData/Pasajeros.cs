@@ -18,7 +18,6 @@ namespace ClasesData
         public Pasajeros()
         {
             this.Equipaje = new HashSet<Equipaje>();
-            this.PasajerosVuelos = new HashSet<PasajerosVuelos>();
         }
     
         public int IdPasajero { get; set; }
@@ -27,10 +26,11 @@ namespace ClasesData
         public string NumeroPasaporte { get; set; }
         public string CorreoElectrónico { get; set; }
         public string NúmeroTeléfono { get; set; }
+        public Nullable<System.DateTime> FechaCompra { get; set; }
+        public Nullable<int> NumeroVuelo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Equipaje> Equipaje { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PasajerosVuelos> PasajerosVuelos { get; set; }
+        public virtual Vuelos Vuelos { get; set; }
     }
 }
