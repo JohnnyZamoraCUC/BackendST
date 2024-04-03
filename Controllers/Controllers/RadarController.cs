@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Web.Http;
-using ClasesData;
 using Controllers.Models;
-using Google.Authenticator;
-using Aeronaves = Controllers.Models.Aeronaves;
-using Vuelos = Controllers.Models.Vuelos;
+using ClasesData;
 
 namespace Controllers.Controllers
 {
@@ -21,46 +15,41 @@ namespace Controllers.Controllers
             RadarEntidad.Configuration.LazyLoadingEnabled = false;
             RadarEntidad.Configuration.ProxyCreationEnabled = false;
         }
+
         [HttpGet]
         [Route("api/Radar/Obtener")]
         public IHttpActionResult ObtenerTodos()
         {
             try
             {
-                // Realizar el join entre Vuelos y Aeronaves utilizando LINQ
-                var vuelosConAeronaves = (from vuelo in RadarEntidad.Vuelos
-                                          join aeronave in RadarEntidad.Aeronaves
-                                          on vuelo.IdAeronave equals aeronave.IdAeronave
-                                          select new
-                                          {
-                                              Vuelo = vuelo,
-                                              Aeronave = aeronave
-                                          }).ToList();
+                var result = (from vuelo in RadarEntidad.Vuelos
+                              join aerolinea in RadarEntidad.Aerolineas on vuelo.IdAerolinea equals aerolinea.IdAerolinea
+                              join aeronave in RadarEntidad.Aeronaves on vuelo.IdAeronave equals aeronave.IdAeronave
+                              join estadoVuelo in RadarEntidad.EstadoVuelo on vuelo.IdEstadoVuelo equals estadoVuelo.IdEstadoVuelo
+                             // join piloto in RadarEntidad.Pilotos on vuelo.IdPiloto equals piloto.IdPiloto
+                              join prioridad in RadarEntidad.PrioridadesVuelos on vuelo.IdPrioridad equals prioridad.IdPrioridad
+                              join tipoVuelo in RadarEntidad.TipoVuelo on vuelo.IDTipoVuelo equals tipoVuelo.IdTipoVuelo
+                              //join origen in RadarEntidad.Ciudades on vuelo.IDOrigen equals origen.IdOrigen
+                              //join destino in RadarEntidad.Ciudades on vuelo.IDDestino equals destino.IdDestino
+                              select new
+                              {
+                                  vuelo.IdVuelo,
+                                  vuelo.NumeroVuelo,
+                                  Aerolinea = aerolinea.NombreAerolinea,
+                                  Aeronave = aeronave.Modelo,
+                                 // EstadoVuelo = estadoVuelo.Descripcion,
+                                  //Piloto = $"{piloto.Nombre} {piloto.Apellido}",
+                                  Prioridad = prioridad.Descripcion,
+                                  TipoVuelo = tipoVuelo.Descripcion,
+                                  //Origen = origen.Nombre,
+                                //  Destino = destino.Nombre,
+                                  vuelo.Ruta,
+                                  vuelo.HoraSalida,
+                                  vuelo.HoraLlegada,
+                                  vuelo.DuracionEstimada
+                              }).ToList();
 
-                // Convertir a modelos Vuelos y Aeronaves
-                List<Vuelos> vuelos = new List<Vuelos>();
-                List<Aeronaves> aeronaves = new List<Aeronaves>();
-
-                foreach (var item in vuelosConAeronaves)
-                {
-                    vuelos.Add(new Vuelos
-                    {
-                        IdVuelo = item.Vuelo.IdVuelo,
-                        NumeroVuelo = item.Vuelo.NumeroVuelo,
-                        
-                        // Agregar los demás campos según corresponda
-                    });
-
-                    aeronaves.Add(new Aeronaves
-                    {
-                        IdAeronave = item.Aeronave.IdAeronave,
-                        Modelo = item.Aeronave.Modelo,
-                        Fabricante = item.Aeronave.Fabricante,
-                        // Agregar los demás campos según corresponda
-                    });
-                }
-
-                return Ok(new { Vuelos = vuelos, Aeronaves = aeronaves });
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -68,7 +57,7 @@ namespace Controllers.Controllers
                 Console.WriteLine($"Error al obtener todos los vuelos: {ex.Message}");
                 return InternalServerError();
             }
-        } 
+        }
 
     }
 }
