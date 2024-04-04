@@ -28,6 +28,7 @@ namespace ClasesData
             this.PersonalServiciosTierra = new HashSet<PersonalServiciosTierra>();
             this.RegistroComunicaciones = new HashSet<RegistroComunicaciones>();
             this.ReporteFinalDespegues = new HashSet<ReporteFinalDespegues>();
+            this.Emergencias = new HashSet<Emergencias>();
         }
     
         public int IdUsuario { get; set; }
@@ -62,5 +63,7 @@ namespace ClasesData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReporteFinalDespegues> ReporteFinalDespegues { get; set; }
         public virtual Rol Rol1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Emergencias> Emergencias { get; set; }
     }
 }

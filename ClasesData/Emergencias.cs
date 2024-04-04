@@ -29,6 +29,7 @@ namespace ClasesData
         public Nullable<int> idaltitudemergencia { get; set; }
         public string idprioridadaterrizaje { get; set; }
         public string DescripcionReportada { get; set; }
+        public Nullable<int> IDUsuario { get; set; }
     
         public virtual AltitudEmergencia AltitudEmergencia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -38,5 +39,6 @@ namespace ClasesData
         public virtual PrioridadesAterrizajes PrioridadesAterrizajes { get; set; }
         public virtual TipoEmergencia TipoEmergencia { get; set; }
         public virtual Vuelos Vuelos { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

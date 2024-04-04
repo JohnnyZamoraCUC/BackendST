@@ -154,6 +154,7 @@
         <AssociationConnector Association="tiusr26pl_ProyectoSitiosModel.FK__Usuarios__Rol__267ABA7A" ManuallyRouted="false" />
         <AssociationConnector Association="tiusr26pl_ProyectoSitiosModel.FK__Vuelos__IDTopoVu__59FA5E80" ManuallyRouted="false" />
         <AssociationConnector Association="tiusr26pl_ProyectoSitiosModel.FK__Tripulaci__IDNum__6442E2C9" ManuallyRouted="false" />
+        <AssociationConnector Association="tiusr26pl_ProyectoSitiosModel.FK_Emergencias_Usuarios" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
