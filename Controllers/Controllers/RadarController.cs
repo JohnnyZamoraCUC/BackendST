@@ -26,23 +26,28 @@ namespace Controllers.Controllers
                               join aerolinea in RadarEntidad.Aerolineas on vuelo.IdAerolinea equals aerolinea.IdAerolinea
                               join aeronave in RadarEntidad.Aeronaves on vuelo.IdAeronave equals aeronave.IdAeronave
                               join estadoVuelo in RadarEntidad.EstadoVuelo on vuelo.IdEstadoVuelo equals estadoVuelo.IdEstadoVuelo
-                             // join piloto in RadarEntidad.Pilotos on vuelo.IdPiloto equals piloto.IdPiloto
+                              join piloto in RadarEntidad.Pilotos on vuelo.IdPiloto equals piloto.IDPiloto
                               join prioridad in RadarEntidad.PrioridadesVuelos on vuelo.IdPrioridad equals prioridad.IdPrioridad
                               join tipoVuelo in RadarEntidad.TipoVuelo on vuelo.IDTipoVuelo equals tipoVuelo.IdTipoVuelo
-                              //join origen in RadarEntidad.Ciudades on vuelo.IDOrigen equals origen.IdOrigen
-                              //join destino in RadarEntidad.Ciudades on vuelo.IDDestino equals destino.IdDestino
+                              join origen in RadarEntidad.Ciudades on vuelo.IDOrigen equals origen.IdCiudad
+                              join destino in RadarEntidad.Ciudades on vuelo.IDDestino equals destino.IdCiudad
+                              //join aeropuertoO in RadarEntidad.Aeropuertos on vuelo.IDOrigen equals aeropuertoO.Latitud
+                              //join aeropuertoD in RadarEntidad.Aeropuertos on vuelo.IDDestino equals aeropuertoD.Longitud
                               select new
                               {
                                   vuelo.IdVuelo,
                                   vuelo.NumeroVuelo,
                                   Aerolinea = aerolinea.NombreAerolinea,
                                   Aeronave = aeronave.Modelo,
-                                 // EstadoVuelo = estadoVuelo.Descripcion,
-                                  //Piloto = $"{piloto.Nombre} {piloto.Apellido}",
+                                  EstadoVuelo = estadoVuelo.Estado,
+                                  PilotoNombre = piloto.Nombre,
+                                  PilotoApellido = piloto.Apellido,
                                   Prioridad = prioridad.Descripcion,
                                   TipoVuelo = tipoVuelo.Descripcion,
-                                  //Origen = origen.Nombre,
-                                //  Destino = destino.Nombre,
+                                  Origen = origen.NombreCiudad,
+                                  Destino = destino.NombreCiudad,
+                                  //AeropuertoO  = aeropuertoO.Latitud,
+                                 // AeropuertoD =aeropuertoD.Longitud,
                                   vuelo.Ruta,
                                   vuelo.HoraSalida,
                                   vuelo.HoraLlegada,
