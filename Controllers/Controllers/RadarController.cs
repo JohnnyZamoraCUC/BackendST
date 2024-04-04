@@ -17,7 +17,7 @@ namespace Controllers.Controllers
         }
 
         [HttpGet]
-        [Route("api/Radar/Obtener")]
+        [Route("api/Vuelos/Obtener")]
         public IHttpActionResult ObtenerTodos()
         {
             try
