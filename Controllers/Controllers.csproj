@@ -261,14 +261,14 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\LabelsController.cs" />
+    <Compile Include="Controllers\EmergenciasController.cs" />
     <Compile Include="Controllers\VuelosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Aeronaves.cs" />
+    <Compile Include="Models\EquiposEmergencia.cs" />
     <Compile Include="Models\Label.cs" />
-    <Compile Include="Models\Vuelos.cs" />
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
