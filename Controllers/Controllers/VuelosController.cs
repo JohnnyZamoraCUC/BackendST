@@ -45,7 +45,7 @@ namespace Controllers.Controllers
                                   Aeronave = aeronave.Modelo,
                                   AeronaveLon = aeronave.Longitud,
                                   AeronaveLat = aeronave.Latitud,
-                                  AeronaveImagen = rutaDominio + "/Interfaz/" + aeronave.RutaImagen,
+                                  AeronaveImagen = rutaDominio + "/BackendST/" + aeronave.RutaImagen,
                                   EstadoVuelo = estadoVuelo.Estado,
                                   PilotoNombre = piloto.Nombre,
                                   PilotoApellido = piloto.Apellido,
@@ -92,6 +92,7 @@ namespace Controllers.Controllers
         {
             try
             {
+                var rutaDominio = ObtenerDominio(); // Método para obtener el dominio completo
                 var result = (from vuelo in VuelosEntidad.Vuelos
 
                               join aerolinea in VuelosEntidad.Aerolineas on vuelo.IdAerolinea equals aerolinea.IdAerolinea
@@ -113,6 +114,7 @@ namespace Controllers.Controllers
                                   Aeronave = aeronave.Modelo,
                                   AeronaveLon = aeronave.Longitud,
                                   AeronaveLat = aeronave.Latitud,
+                                  AeronaveImagen = rutaDominio + "/BackendST/" + aeronave.RutaImagen,
                                   EstadoVuelo = estadoVuelo.Estado,
                                   PilotoNombre = piloto.Nombre,
                                   PilotoApellido = piloto.Apellido,
