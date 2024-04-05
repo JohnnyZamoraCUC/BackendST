@@ -45,6 +45,7 @@ namespace ClasesData
         public Nullable<int> NumeroMotores { get; set; }
         public Nullable<bool> Estado { get; set; }
         public Nullable<int> IdAerolinea { get; set; }
+        public string RutaImagen { get; set; }
     
         public virtual Aerolineas Aerolineas { get; set; }
         public virtual EstadoAeronave EstadoAeronave { get; set; }

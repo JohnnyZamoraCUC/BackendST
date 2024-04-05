@@ -4,6 +4,7 @@ using System.Web.Http;
 using Controllers.Models;
 using ClasesData;
 
+using System.Web;
 namespace Controllers.Controllers
 {
     public class VuelosController : ApiController
@@ -15,15 +16,17 @@ namespace Controllers.Controllers
             VuelosEntidad.Configuration.LazyLoadingEnabled = false;
             VuelosEntidad.Configuration.ProxyCreationEnabled = false;
         }
-
+    
+  
         [HttpGet]
         [Route("api/Vuelos/Obtener")]
         public IHttpActionResult ObtenerTodos()
         {
             try
             {
-                var result = (from vuelo in VuelosEntidad.Vuelos
+                var rutaDominio = ObtenerDominio(); // Método para obtener el dominio completo
 
+                var result = (from vuelo in VuelosEntidad.Vuelos
                               join aerolinea in VuelosEntidad.Aerolineas on vuelo.IdAerolinea equals aerolinea.IdAerolinea
                               join aeronave in VuelosEntidad.Aeronaves on vuelo.IdAeronave equals aeronave.IdAeronave
                               join estadoVuelo in VuelosEntidad.EstadoVuelo on vuelo.IdEstadoVuelo equals estadoVuelo.IdEstadoVuelo
@@ -42,6 +45,7 @@ namespace Controllers.Controllers
                                   Aeronave = aeronave.Modelo,
                                   AeronaveLon = aeronave.Longitud,
                                   AeronaveLat = aeronave.Latitud,
+                                  AeronaveImagen = rutaDominio + "/Interfaz/" + aeronave.RutaImagen,
                                   EstadoVuelo = estadoVuelo.Estado,
                                   PilotoNombre = piloto.Nombre,
                                   PilotoApellido = piloto.Apellido,
@@ -68,6 +72,20 @@ namespace Controllers.Controllers
                 return InternalServerError();
             }
         }
+
+        private string ObtenerDominio()
+        {
+            try
+            {
+                var dominio = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+                return dominio;
+            }
+            catch (Exception)
+            {
+                return null; 
+            }
+        }
+
         [HttpGet]
         [Route("api/Vuelos/ObtenerPorCodigo")]
         public IHttpActionResult ObtenerPorCodigo(string codigoVuelo)

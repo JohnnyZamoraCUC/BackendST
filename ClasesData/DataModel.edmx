@@ -44,6 +44,7 @@
           <Property Name="NumeroMotores" Type="int" />
           <Property Name="Estado" Type="bit" />
           <Property Name="IdAerolinea" Type="int" />
+          <Property Name="RutaImagen" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Aeropuertos">
           <Key>
@@ -2165,6 +2166,7 @@
           <NavigationProperty Name="ComunicacionesControladorAeronave" Relationship="Self.FK__Comunicac__IdAer__339FAB6E" FromRole="Aeronaves" ToRole="ComunicacionesControladorAeronave" />
           <NavigationProperty Name="SecuenciaAterrizaje" Relationship="Self.FK__Secuencia__IdAer__66603565" FromRole="Aeronaves" ToRole="SecuenciaAterrizaje" />
           <NavigationProperty Name="Vuelos" Relationship="Self.FK__Vuelos__IdAerona__5629CD9C" FromRole="Aeronaves" ToRole="Vuelos" />
+          <Property Name="RutaImagen" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Aeropuertos">
           <Key>
@@ -4416,6 +4418,7 @@
           <EntitySetMapping Name="Aeronaves">
             <EntityTypeMapping TypeName="tiusr26pl_ProyectoSitiosModel.Aeronaves">
               <MappingFragment StoreEntitySet="Aeronaves">
+                <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
                 <ScalarProperty Name="IdAeronave" ColumnName="IdAeronave" />
                 <ScalarProperty Name="Modelo" ColumnName="Modelo" />
                 <ScalarProperty Name="Fabricante" ColumnName="Fabricante" />
