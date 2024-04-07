@@ -27,12 +27,13 @@ namespace ClasesData
         public string Modelo { get; set; }
         public string Fabricante { get; set; }
         public int AnioFabricacion { get; set; }
+        public string Rutaimagen { get; set; }
         public string Matricula { get; set; }
         public Nullable<int> CapacidadPasajeros { get; set; }
         public Nullable<decimal> CapacidadCarga { get; set; }
         public Nullable<System.DateTime> FechaUltimoMantenimiento { get; set; }
         public string TipoMotor { get; set; }
-        public decimal Longitud { get; set; }
+        public Nullable<decimal> Longitud { get; set; }
         public Nullable<decimal> Latitud { get; set; }
         public decimal Envergadura { get; set; }
         public decimal Altura { get; set; }
@@ -45,7 +46,6 @@ namespace ClasesData
         public Nullable<int> NumeroMotores { get; set; }
         public Nullable<bool> Estado { get; set; }
         public Nullable<int> IdAerolinea { get; set; }
-        public string RutaImagen { get; set; }
     
         public virtual Aerolineas Aerolineas { get; set; }
         public virtual EstadoAeronave EstadoAeronave { get; set; }

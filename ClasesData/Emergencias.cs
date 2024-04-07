@@ -24,7 +24,7 @@ namespace ClasesData
         public int IdEmergencia { get; set; }
         public Nullable<System.DateTime> FechaHoraInicio { get; set; }
         public Nullable<System.DateTime> FechaHoraFin { get; set; }
-        public Nullable<int> idTipoEmergencia { get; set; }
+        public Nullable<int> idTipoProcedimiento { get; set; }
         public Nullable<int> idvuelo { get; set; }
         public Nullable<int> idaltitudemergencia { get; set; }
         public string idprioridadaterrizaje { get; set; }
@@ -37,8 +37,8 @@ namespace ClasesData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Aterrizajes> Aterrizajes { get; set; }
         public virtual PrioridadesAterrizajes PrioridadesAterrizajes { get; set; }
-        public virtual TipoEmergencia TipoEmergencia { get; set; }
-        public virtual Vuelos Vuelos { get; set; }
+        public virtual Procedimientos Procedimientos { get; set; }
         public virtual Usuarios Usuarios { get; set; }
+        public virtual Vuelos Vuelos { get; set; }
     }
 }

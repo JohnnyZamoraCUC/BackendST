@@ -56,7 +56,7 @@ namespace Controllers.Controllers
 
                 var result = (from Reportes in EmergenciasEntidad.Emergencias
 
-                              join TipoEmergencia in EmergenciasEntidad.TipoEmergencia on Reportes.idTipoEmergencia equals TipoEmergencia.IdTipoEmergencia
+                              join TipoEmergencia in EmergenciasEntidad.TipoEmergencia on Reportes.idTipoProcedimiento equals TipoEmergencia.IdTipoEmergencia
                               join Vuelo in EmergenciasEntidad.Vuelos on Reportes.idvuelo equals Vuelo.IdVuelo
                               join AltitudE in EmergenciasEntidad.AltitudEmergencia on Reportes.idaltitudemergencia equals AltitudE.IdAltitudEmergencia
                               join PrioridadA in EmergenciasEntidad.PrioridadesAterrizajes on Reportes.idprioridadaterrizaje equals PrioridadA.IdPrioridadAterrizaje

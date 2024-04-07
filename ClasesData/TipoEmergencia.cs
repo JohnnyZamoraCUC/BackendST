@@ -17,7 +17,6 @@ namespace ClasesData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TipoEmergencia()
         {
-            this.Emergencias = new HashSet<Emergencias>();
             this.EquiposEmergencia = new HashSet<EquiposEmergencia>();
         }
     
@@ -25,8 +24,6 @@ namespace ClasesData
         public string Tipo { get; set; }
         public string Descripcion { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Emergencias> Emergencias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EquiposEmergencia> EquiposEmergencia { get; set; }
     }

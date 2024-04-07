@@ -21,7 +21,6 @@ namespace ClasesData
         }
     
         public int IdAltitudEmergencia { get; set; }
-        public Nullable<int> IdEmergencia { get; set; }
         public Nullable<decimal> Altitud { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

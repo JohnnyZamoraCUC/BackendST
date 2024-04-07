@@ -38,11 +38,11 @@ namespace ClasesData
         public int IdVuelo { get; set; }
         public string NumeroVuelo { get; set; }
         public Nullable<int> IdAerolinea { get; set; }
-        public Nullable<int> IdAeronave { get; set; }
+        public Nullable<int> IDAeronave { get; set; }
         public Nullable<int> IdEstadoVuelo { get; set; }
         public Nullable<int> IdPiloto { get; set; }
         public Nullable<int> IdPrioridad { get; set; }
-        public Nullable<int> IDTipoVuelo { get; set; }
+        public Nullable<int> IDTipovuelo { get; set; }
         public Nullable<int> IDOrigen { get; set; }
         public Nullable<int> IDDestino { get; set; }
         public string Ruta { get; set; }

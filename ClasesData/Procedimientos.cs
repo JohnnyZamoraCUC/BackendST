@@ -14,6 +14,12 @@ namespace ClasesData
     
     public partial class Procedimientos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Procedimientos()
+        {
+            this.Emergencias = new HashSet<Emergencias>();
+        }
+    
         public int IdProcedimiento { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
@@ -22,6 +28,8 @@ namespace ClasesData
         public string Observaciones { get; set; }
         public Nullable<int> IdEquipoEmergencia { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Emergencias> Emergencias { get; set; }
         public virtual EquiposEmergencia EquiposEmergencia { get; set; }
     }
 }

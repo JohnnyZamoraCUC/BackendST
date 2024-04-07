@@ -29,11 +29,11 @@ namespace Controllers.Controllers
 
                 var result = (from vuelo in VuelosEntidad.Vuelos
                               join aerolinea in VuelosEntidad.Aerolineas on vuelo.IdAerolinea equals aerolinea.IdAerolinea
-                              join aeronave in VuelosEntidad.Aeronaves on vuelo.IdAeronave equals aeronave.IdAeronave
+                              join aeronave in VuelosEntidad.Aeronaves on vuelo.IDAeronave equals aeronave.IdAeronave
                               join estadoVuelo in VuelosEntidad.EstadoVuelo on vuelo.IdEstadoVuelo equals estadoVuelo.IdEstadoVuelo
                               join piloto in VuelosEntidad.Pilotos on vuelo.IdPiloto equals piloto.IDPiloto
                               join prioridad in VuelosEntidad.PrioridadesVuelos on vuelo.IdPrioridad equals prioridad.IdPrioridad
-                              join tipoVuelo in VuelosEntidad.TipoVuelo on vuelo.IDTipoVuelo equals tipoVuelo.IdTipoVuelo
+                              join tipoVuelo in VuelosEntidad.TipoVuelo on vuelo.IDTipovuelo equals tipoVuelo.IdTipoVuelo
                               join origen in VuelosEntidad.Ciudades on vuelo.IDOrigen equals origen.IdCiudad
                               join destino in VuelosEntidad.Ciudades on vuelo.IDDestino equals destino.IdCiudad
                               join aeropuertoOrigenlatitudLongitud in VuelosEntidad.Aeropuertos on vuelo.IDOrigen equals aeropuertoOrigenlatitudLongitud.IdAeropuerto
@@ -46,7 +46,7 @@ namespace Controllers.Controllers
                                   Aeronave = aeronave.Modelo,
                                   AeronaveLon = aeronave.Longitud,
                                   AeronaveLat = aeronave.Latitud,
-                                  AeronaveImagen = rutaDominio + "/BackendST/" + aeronave.RutaImagen,
+                                  AeronaveImagen = rutaDominio + "/BackendST/" + aeronave.Rutaimagen,
                                   EstadoVuelo = estadoVuelo.Estado,
                                   PilotoNombre = piloto.Nombre,
                                   PilotoApellido = piloto.Apellido,
@@ -97,11 +97,11 @@ namespace Controllers.Controllers
                 var result = (from vuelo in VuelosEntidad.Vuelos
 
                               join aerolinea in VuelosEntidad.Aerolineas on vuelo.IdAerolinea equals aerolinea.IdAerolinea
-                              join aeronave in VuelosEntidad.Aeronaves on vuelo.IdAeronave equals aeronave.IdAeronave
+                              join aeronave in VuelosEntidad.Aeronaves on vuelo.IDAeronave equals aeronave.IdAeronave
                               join estadoVuelo in VuelosEntidad.EstadoVuelo on vuelo.IdEstadoVuelo equals estadoVuelo.IdEstadoVuelo
                               join piloto in VuelosEntidad.Pilotos on vuelo.IdPiloto equals piloto.IDPiloto
                               join prioridad in VuelosEntidad.PrioridadesVuelos on vuelo.IdPrioridad equals prioridad.IdPrioridad
-                              join tipoVuelo in VuelosEntidad.TipoVuelo on vuelo.IDTipoVuelo equals tipoVuelo.IdTipoVuelo
+                              join tipoVuelo in VuelosEntidad.TipoVuelo on vuelo.IDTipovuelo equals tipoVuelo.IdTipoVuelo
                               join origen in VuelosEntidad.Ciudades on vuelo.IDOrigen equals origen.IdCiudad
                               join destino in VuelosEntidad.Ciudades on vuelo.IDDestino equals destino.IdCiudad
                               join aeropuertoOrigenlatitudLongitud in VuelosEntidad.Aeropuertos on vuelo.IDOrigen equals aeropuertoOrigenlatitudLongitud.IdAeropuerto
@@ -115,7 +115,7 @@ namespace Controllers.Controllers
                                   Aeronave = aeronave.Modelo,
                                   AeronaveLon = aeronave.Longitud,
                                   AeronaveLat = aeronave.Latitud,
-                                  AeronaveImagen = rutaDominio + "/BackendST/" + aeronave.RutaImagen,
+                                  AeronaveImagen = rutaDominio + "/BackendST/" + aeronave.Rutaimagen,
                                   EstadoVuelo = estadoVuelo.Estado,
                                   PilotoNombre = piloto.Nombre,
                                   PilotoApellido = piloto.Apellido,
