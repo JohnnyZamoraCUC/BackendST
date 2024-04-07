@@ -269,6 +269,7 @@
     </Compile>
     <Compile Include="Models\EquiposEmergencia.cs" />
     <Compile Include="Models\Label.cs" />
+    <Compile Include="Models\RegistroE.cs" />
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using ClasesData;
+using Controllers.Models;
 
 namespace Controllers.Controllers
 {
@@ -74,6 +75,45 @@ namespace Controllers.Controllers
                                   DatoPrioridad = PrioridadA.IdPrioridadAterrizaje,
                                   DatoUsuario = Usuario.Nombre,
                                   DatoUsuario2 = Usuario.Apellido
+                              }).ToList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Registrar el error o notificar de alguna manera
+                Console.WriteLine($"Error al obtener todos los vuelos: {ex.Message}");
+                return InternalServerError();
+            }
+        }
+        [HttpGet]
+        [Route("api/Emergencia/RealizarReportes")]
+        public IHttpActionResult RealizarReportes()
+        {
+            try
+            {
+
+
+                var result = (from Reportes in EmergenciasEntidad.Emergencias
+
+                              join TipoEmergencia in EmergenciasEntidad.TipoEmergencia on Reportes.idTipoProcedimiento equals TipoEmergencia.IdTipoEmergencia
+                              join Vuelo in EmergenciasEntidad.Vuelos on Reportes.idvuelo equals Vuelo.IdVuelo
+                              join AltitudE in EmergenciasEntidad.AltitudEmergencia on Reportes.idaltitudemergencia equals AltitudE.IdAltitudEmergencia
+                              join PrioridadA in EmergenciasEntidad.PrioridadesAterrizajes on Reportes.idprioridadaterrizaje equals PrioridadA.IdPrioridadAterrizaje
+                              join Usuario in EmergenciasEntidad.Usuarios on Reportes.IDUsuario equals Usuario.IdUsuario
+
+                              select new
+                              {
+                                  Reportes.IdEmergencia,
+                                  Reportes.FechaHoraInicio,
+                                  Reportes.FechaHoraFin,
+                                  Reportes.DescripcionReportada,
+                                  DatoTipoE = TipoEmergencia.Descripcion,
+                                  DatoVuelo = Vuelo.NumeroVuelo,
+                                  DatoAltitud = AltitudE.Altitud,
+                                  DatoPrioridad = PrioridadA.IdPrioridadAterrizaje,
+                                  DatoUsuario = Usuario.Nombre,
+                                  DatoUsuario2 = Usuario.Apellido
 
                               }).ToList();
 
@@ -86,5 +126,61 @@ namespace Controllers.Controllers
                 return InternalServerError();
             }
         }
+
+
+        /*{
+        formato de fehca que permite el API
+  "IdEmergencia": 1,
+  "FechaHoraInicio": "2024-04-07T02:27:14.396",
+  "FechaHoraFin": "2024-04-07T02:27:14.396",
+  "idTipoProcedimiento": 1,
+  "idvuelo": 1,
+  "idaltitudemergencia": 1,
+  "idprioridadaterrizaje": "A",
+  "DescripcionReportada": "Reporte Test",
+  "IDUsuario": 1
+}
+
+*/
+        [HttpPost]
+        [Route("api/Emergencias/CrearEmergencia")]
+        public IHttpActionResult CrearEmergencia([FromBody] RegistroE emergencia)
+        {
+            try
+            {
+                if (emergencia == null)
+                {
+                    return BadRequest("Los datos de la emergencia son nulos.");
+                }
+
+                // Crear una nueva instancia de la entidad ClasesData.Emergencias
+                var nuevaEmergencia = new ClasesData.Emergencias
+                {
+                    FechaHoraInicio = emergencia.FechaHoraInicio,
+                    FechaHoraFin = emergencia.FechaHoraFin,
+                    idTipoProcedimiento = emergencia.idTipoProcedimiento,
+                    idvuelo = emergencia.idvuelo,
+                    idaltitudemergencia = emergencia.idaltitudemergencia,
+                    idprioridadaterrizaje = emergencia.idprioridadaterrizaje,
+                    DescripcionReportada = emergencia.DescripcionReportada,
+                    IDUsuario = emergencia.IDUsuario
+                };
+
+                // Agregar la nueva emergencia al contexto y guardar cambios en la base de datos
+                EmergenciasEntidad.Configuration.ValidateOnSaveEnabled = false;
+                EmergenciasEntidad.Emergencias.Add(nuevaEmergencia);
+                EmergenciasEntidad.SaveChanges();
+                EmergenciasEntidad.Configuration.ValidateOnSaveEnabled = true;
+
+                return Ok("Emergencia creada exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                // Registrar el error o notificar de alguna manera
+                Console.WriteLine($"Error al crear emergencia: {ex.Message}");
+                return InternalServerError();
+            }
+        }
+
     }
 }
