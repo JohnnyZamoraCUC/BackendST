@@ -128,8 +128,8 @@ namespace Controllers.Controllers
         }
 
 
-        /*{
-        formato de fehca que permite el API
+        /*
+     {
   "IdEmergencia": 1,
   "FechaHoraInicio": "2024-04-07T02:27:14.396",
   "FechaHoraFin": "2024-04-07T02:27:14.396",
@@ -153,9 +153,15 @@ namespace Controllers.Controllers
                     return BadRequest("Los datos de la emergencia son nulos.");
                 }
 
+                int ultimoIdEmergencia = EmergenciasEntidad.Emergencias
+                   .OrderByDescending(e => e.IdEmergencia)
+                   .Select(e => e.IdEmergencia)
+                   .FirstOrDefault();
+                int nuevoIdEmergencia = ultimoIdEmergencia + 1;
                 // Crear una nueva instancia de la entidad ClasesData.Emergencias
                 var nuevaEmergencia = new ClasesData.Emergencias
                 {
+                    IdEmergencia = nuevoIdEmergencia,
                     FechaHoraInicio = emergencia.FechaHoraInicio,
                     FechaHoraFin = emergencia.FechaHoraFin,
                     idTipoProcedimiento = emergencia.idTipoProcedimiento,
