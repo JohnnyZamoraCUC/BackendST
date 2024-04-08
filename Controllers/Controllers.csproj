@@ -262,6 +262,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\LabelsController.cs" />
     <Compile Include="Controllers\EmergenciasController.cs" />
+    <Compile Include="Controllers\AterrizajeController.cs" />
     <Compile Include="Controllers\VuelosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
