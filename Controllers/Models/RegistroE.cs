@@ -8,7 +8,7 @@ namespace Controllers.Models
     public class RegistroE
     {
 
-        public int IdEmergencia { get; set; }
+     //   public int IdEmergencia { get; set; }
         public DateTime FechaHoraInicio { get; set; }
         public DateTime FechaHoraFin { get; set; }
         public int idTipoProcedimiento { get; set; }
