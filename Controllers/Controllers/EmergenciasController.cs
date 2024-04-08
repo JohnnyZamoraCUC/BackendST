@@ -181,6 +181,37 @@ namespace Controllers.Controllers
                 return InternalServerError();
             }
         }
+        [HttpGet]
+        [Route("api/Emergencias/PrioridadAterizaje")]
+        public IHttpActionResult PrioridadAterizaje()
+        {
+            try
+            {
+                var labels = EmergenciasEntidad.PrioridadesAterrizajes.Select(l => new { IdPrioridadAterrizaje = l.IdPrioridadAterrizaje, Descripcion = l.Descripcion }).ToList();
+                return Ok(labels);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener todas las etiquetas: {ex.Message}");
+                return InternalServerError();
+            }
+        }
+        [HttpGet]
+        [Route("api/Emergencias/AltitudEmergencia")]
+        public IHttpActionResult AltitudEmergencia()
+        {
+            try
+            {
+                var labels = EmergenciasEntidad.AltitudEmergencia.Select(l => new { IdAltitudEmergencia = l.IdAltitudEmergencia, Altitud = l.Altitud }).ToList();
+                return Ok(labels);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener todas las etiquetas: {ex.Message}");
+                return InternalServerError();
+            }
 
+
+        }
     }
 }
