@@ -17,8 +17,8 @@ namespace Controllers.Controllers
             VuelosEntidad.Configuration.LazyLoadingEnabled = false;
             VuelosEntidad.Configuration.ProxyCreationEnabled = false;
         }
-    
-  
+
+
         [HttpGet]
         [Route("api/Aterrizaje/ObtenerAproximacion")]
         public IHttpActionResult ObtenerAproximaciones()
@@ -90,13 +90,13 @@ namespace Controllers.Controllers
             }
             catch (Exception)
             {
-                return null; 
+                return null;
             }
         }
 
         [HttpGet]
         [Route("api/Aterrizaje/InfoVuelo")]
-        public IHttpActionResult ObtenerPorCodigo(string codigoVuelo)
+        public IHttpActionResult ObtenerVuelo(string codigoVuelo)
         {
             try
             {
@@ -111,8 +111,6 @@ namespace Controllers.Controllers
                               join tipoVuelo in VuelosEntidad.TipoVuelo on vuelo.IDTipovuelo equals tipoVuelo.IdTipoVuelo
                               join origen in VuelosEntidad.Ciudades on vuelo.IDOrigen equals origen.IdCiudad
                               join destino in VuelosEntidad.Ciudades on vuelo.IDDestino equals destino.IdCiudad
-                              join aeropuertoOrigenlatitudLongitud in VuelosEntidad.Aeropuertos on vuelo.IDOrigen equals aeropuertoOrigenlatitudLongitud.IdAeropuerto
-                              join aeropuertoDestinolatitudLongitud in VuelosEntidad.Aeropuertos on vuelo.IDDestino equals aeropuertoDestinolatitudLongitud.IdAeropuerto
                               where vuelo.NumeroVuelo == codigoVuelo
                               select new
                               {
@@ -137,7 +135,35 @@ namespace Controllers.Controllers
                 return InternalServerError();
             }
         }
+        [HttpGet]
+        [Route("api/Aterrizaje/InfoPistas")]
+        public IHttpActionResult ObtenerPista(string CodAeropuerto)
+        {
+            try
+            {
+                var rutaDominio = ObtenerDominio(); // Método para obtener el dominio completo
+                var result = (from Pista in VuelosEntidad.Pistas
 
-
+                              join Aeropuerto in VuelosEntidad.Aeropuertos on Pista.IdAeropuerto equals Aeropuerto.IdAeropuerto
+                              join EstPista in VuelosEntidad.EstadoPista on Pista.IdPista equals EstPista.IdPista
+                              where Aeropuerto.Nombre == CodAeropuerto
+                              select new
+                              {
+                                  Pista = Pista.IdPista,
+                                  EstPista = EstPista.Estado,
+                                  Disponibilidad = EstPista.Disponible,
+                                  Longi = Pista.Longitud,
+                                  AnchoPista = Pista.Ancho,
+                                  Comentarios = EstPista.Observaciones
+                              }).ToList();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Registrar el error o notificar de alguna manera
+                Console.WriteLine($"Error al obtener las pistas: {ex.Message}");
+                return InternalServerError();
+            }
+        }
     }
 }
