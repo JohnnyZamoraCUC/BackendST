@@ -43,7 +43,7 @@ namespace Controllers.Controllers
                                   Aeronave = Aeronave.Modelo,
                                   Prioridad = prioridad.Nombre,
                                   Destino = Aeropuerto.Nombre,
-                                  AeronaveImagen = rutaDominio + "/BackendST/" + Aeronave.Rutaimagen
+                                  AeronaveImagen = "https://tiusr26pl.cuc-carrera-ti.ac.cr/Imagenes/Avianca.jpg" //+ Aeronave.Rutaimagen
                               }).ToList();
 
                 return Ok(result);
@@ -124,6 +124,8 @@ namespace Controllers.Controllers
                                   TipoVuelo = tipoVuelo.Descripcion,
                                   Origen = origen.NombreCiudad,
                                   Destino = destino.NombreCiudad,
+                                  Lat = aeronave.Latitud,
+                                  lon = aeronave.Longitud
                               }).ToList();
 
                 return Ok(result);
