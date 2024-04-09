@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 using System.Web.Http;
 using ClasesData;
 using Controllers.Models;
@@ -96,9 +97,22 @@ namespace Controllers.Controllers
 
         private string GenerarTokenDobleFactor()
         {
-   
-            var secretKey = Guid.NewGuid().ToString().Replace("-", "");
-            return secretKey;
+            // Caracteres disponibles para el token (alfabeto)
+            string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            // Generar un token de longitud 4
+            Random random = new Random();
+            StringBuilder tokenBuilder = new StringBuilder();
+
+            for (int i = 0; i < 4; i++)
+            {
+                // Obtener un carácter aleatorio del alfabeto
+                char caracter = caracteres[random.Next(caracteres.Length)];
+                tokenBuilder.Append(caracter);
+            }
+
+            string secrectkey = tokenBuilder.ToString();
+            return secrectkey;
         }
 
         private void EnviarToken(string correo, string token)
@@ -114,8 +128,10 @@ namespace Controllers.Controllers
 
                 var message = new MailMessage("prograiv2023@spestechnical.com", correo)
                 {
-                    Subject = "Código de verificación",
-                    Body = $"Su código de verificación es: {token}"
+                    Subject = "Su código de TokenPlane es",
+                    Body = $"" +
+                    $"\t\r\nInicia sesión en SkyGuardian\r\n¡Qué bien que hayas vuelto! Para iniciar sesión, escribe este código en los próximos 10 minutos:: {token}"
+
                 };
 
                 smtpClient.Send(message);
