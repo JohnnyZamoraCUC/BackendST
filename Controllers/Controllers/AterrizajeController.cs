@@ -18,10 +18,9 @@ namespace Controllers.Controllers
             VuelosEntidad.Configuration.ProxyCreationEnabled = false;
         }
 
-
         [HttpGet]
         [Route("api/Aterrizaje/ObtenerAproximacion")]
-        public IHttpActionResult ObtenerAproximaciones()
+        public IHttpActionResult ObtenerAproximaciones(string Aeroport)
         {
             try
             {
@@ -34,6 +33,7 @@ namespace Controllers.Controllers
                               join prioridad in VuelosEntidad.PrioridadesVuelos on Vuelo.IdPrioridad equals prioridad.IdPrioridad
                               join Aerolinea in VuelosEntidad.Aerolineas on Vuelo.IdAerolinea equals Aerolinea.IdAerolinea
                               join Aeropuerto in VuelosEntidad.Aeropuertos on Vuelo.IDDestino equals Aeropuerto.IdAeropuerto
+                              where Aeropuerto.Nombre == Aeroport
                               select new
                               {
                                   Aerolinea = Aerolinea.NombreAerolinea,
