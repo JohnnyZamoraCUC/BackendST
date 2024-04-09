@@ -124,6 +124,8 @@ namespace Controllers.Controllers
                                   TipoVuelo = tipoVuelo.Descripcion,
                                   Origen = origen.NombreCiudad,
                                   Destino = destino.NombreCiudad,
+                                  Lat = aeronave.Latitud,
+                                  lon = aeronave.Longitud
                               }).ToList();
 
                 return Ok(result);
