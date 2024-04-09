@@ -9,6 +9,7 @@
 
 namespace ClasesData
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -25,11 +26,15 @@ namespace ClasesData
         public string Comentarios { get; set; }
         public Nullable<bool> PermisoSobrevuelo { get; set; }
         public Nullable<int> idemergencia { get; set; }
-    
+        [JsonIgnore]
         public virtual Emergencias Emergencias { get; set; }
+        [JsonIgnore]
         public virtual EstadoAproximacion EstadoAproximacion { get; set; }
+        [JsonIgnore]
         public virtual InformacionMeteorologica InformacionMeteorologica { get; set; }
+        [JsonIgnore]
         public virtual TipoAproximacion TipoAproximacion { get; set; }
-        public virtual Vuelos Vuelos { get; set; }
+            [JsonIgnore]
+         public virtual Vuelos Vuelos { get; set; }
     }
 }
