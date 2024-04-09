@@ -143,6 +143,42 @@ namespace Controllers.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("api/Vuelos/ActualizarEstado/{id}")]
+        public IHttpActionResult ActualizarEstado(int id, [FromBody] int nuevoIdEstado)
+        {
+            try
+            {
+                // Obtener el vuelo con el ID proporcionado
+                var vuelo = VuelosEntidad.Vuelos.FirstOrDefault(v => v.IdVuelo == id);
+                if (vuelo == null)
+                {
+                    return NotFound(); // Vuelo no encontrado
+                }
 
+                // Verificar si el nuevo estado de vuelo existe
+                var estadoVuelo = VuelosEntidad.EstadoVuelo.FirstOrDefault(ev => ev.IdEstadoVuelo == nuevoIdEstado);
+                if (estadoVuelo == null)
+                {
+                    return BadRequest("El estado de vuelo especificado no existe."); // Estado de vuelo no encontrado
+                }
+
+                // Actualizar el estado del vuelo
+                vuelo.IdEstadoVuelo = nuevoIdEstado;
+
+                // Guardar los cambios en la base de datos
+                VuelosEntidad.SaveChanges();
+
+                return Ok(); // Operación exitosa
+            }
+            catch (Exception ex)
+            {
+                // Registrar el error o notificar de alguna manera
+                Console.WriteLine($"Error al actualizar el estado del vuelo con ID {id}: {ex.Message}");
+                return InternalServerError();
+            }
+        }
     }
 }
+
+
