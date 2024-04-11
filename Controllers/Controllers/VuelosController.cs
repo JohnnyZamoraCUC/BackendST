@@ -6,6 +6,8 @@ using ClasesData;
 
 using System.Web;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Threading;
 namespace Controllers.Controllers
 {
     public class VuelosController : ApiController
@@ -17,8 +19,8 @@ namespace Controllers.Controllers
             VuelosEntidad.Configuration.LazyLoadingEnabled = false;
             VuelosEntidad.Configuration.ProxyCreationEnabled = false;
         }
-    
-  
+
+
         [HttpGet]
         [Route("api/Vuelos/Obtener")]
         public IHttpActionResult ObtenerTodos()
@@ -83,7 +85,7 @@ namespace Controllers.Controllers
             }
             catch (Exception)
             {
-                return null; 
+                return null;
             }
         }
 
@@ -178,7 +180,118 @@ namespace Controllers.Controllers
                 return InternalServerError();
             }
         }
+
+        private void ActualizarUbicacionAvion(string codigoVuelo, List<Tuple<double, double>> puntosIntermedios)
+        {
+            int index = 0; // Índice inicial de la lista de puntos intermedios
+
+            while (true)
+            {
+                try
+                {
+                    // Obtener detalles del vuelo por código de vuelo
+                    var vuelo = VuelosEntidad.Vuelos.FirstOrDefault(v => v.NumeroVuelo == codigoVuelo);
+                    if (vuelo == null)
+                    {
+                        Console.WriteLine($"Vuelo con código {codigoVuelo} no encontrado.");
+                        return;
+                    }
+
+                    // Obtener la aeronave asociada al vuelo
+                    var aeronave = VuelosEntidad.Aeronaves.FirstOrDefault(a => a.IdAeronave == vuelo.IDAeronave);
+                    if (aeronave == null)
+                    {
+                        Console.WriteLine($"Aeronave del vuelo con código {codigoVuelo} no encontrada.");
+                        return;
+                    }
+
+                    // Obtener las coordenadas del punto intermedio actual
+                    var currentPoint = puntosIntermedios[index];
+                    var latitud = currentPoint.Item1;
+                    var longitud = currentPoint.Item2;
+
+                    // Actualizar la ubicación de la aeronave
+                    aeronave.Latitud = (decimal?)latitud;
+                    aeronave.Longitud = (decimal?)longitud;
+                    VuelosEntidad.SaveChanges();
+
+                    Console.WriteLine($"Ubicación actualizada para avión con ID {aeronave.IdAeronave} en vuelo {codigoVuelo}: Latitud = {latitud}, Longitud = {longitud}");
+
+                    // Avanzar al siguiente punto intermedio circularmente
+                    index = (index + 1) % puntosIntermedios.Count;
+
+                    // Esperar 2 segundos antes de la próxima actualización
+                    Thread.Sleep(2000); // Esperar 2000 milisegundos (equivalente a 2 segundos)
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al actualizar la ubicación del avión: {ex.Message}");
+                }
+            }
+        }
+
+
+        private List<Tuple<double, double>> CalcularPuntosIntermedios(double startLat, double startLon, double endLat, double endLon, int numPoints)
+        {
+            var points = new List<Tuple<double, double>>();
+
+            for (int i = 1; i <= numPoints; i++)
+            {
+                var interp = (double)i / numPoints;
+                var newLat = (1 - interp) * startLat + interp * endLat;
+                var newLon = (1 - interp) * startLon + interp * endLon;
+                points.Add(new Tuple<double, double>(newLat, newLon));
+            }
+
+            return points;
+        }
+
+        [HttpGet]
+        [Route("api/Vuelos/CalcularPuntosIntermedios")]
+        public IHttpActionResult CalcularPuntosIntermedios(string codigoVuelo)
+        {
+            try
+            {
+                // Verificar el estado del vuelo antes de calcular puntos intermedios
+                var vuelo = VuelosEntidad.Vuelos.FirstOrDefault(v => v.NumeroVuelo == codigoVuelo);
+                if (vuelo == null)
+                {
+                    return NotFound(); // Vuelo no encontrado
+                }
+
+                var estadoVuelo = vuelo.IdEstadoVuelo;
+                if (estadoVuelo != 3)
+                {
+                    return BadRequest("El vuelo no se encuentra en estado de vuelo.");
+                }
+
+                // Obtener coordenadas de origen y destino
+                var aeropuertoOrigen = VuelosEntidad.Aeropuertos.FirstOrDefault(a => a.IdAeropuerto == vuelo.IDOrigen);
+                var aeropuertoDestino = VuelosEntidad.Aeropuertos.FirstOrDefault(a => a.IdAeropuerto == vuelo.IDDestino);
+                if (aeropuertoOrigen == null || aeropuertoDestino == null)
+                {
+                    return NotFound(); // Aeropuertos no encontrados
+                }
+
+                // Calcular puntos intermedios entre las coordenadas de origen y destino
+                var startLat = (double)aeropuertoOrigen.Latitud;
+                var startLon = (double)aeropuertoOrigen.Longitud;
+                var endLat = (double)aeropuertoDestino.Latitud;
+                var endLon = (double)aeropuertoDestino.Longitud;
+                var numPoints = 300;
+
+                var points = CalcularPuntosIntermedios(startLat, startLon, endLat, endLon, numPoints);
+                var thread = new Thread(() => ActualizarUbicacionAvion(codigoVuelo, points));
+                thread.Start();
+                // Devolver los puntos intermedios como resultado
+                return Ok(points);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al calcular puntos intermedios: {ex.Message}");
+                return InternalServerError();
+            }
+        }
     }
 }
-
 
