@@ -235,19 +235,19 @@ namespace Controllers.Controllers
         {
             var points = new List<Tuple<double, double>>();
 
+            // Puntos de control para la curva de Bézier cúbica
+            double controlLat1 = startLat + (endLat - startLat) / 3.0;
+            double controlLon1 = startLon;
+            double controlLat2 = endLat - (endLat - startLat) / 3.0;
+            double controlLon2 = endLon;
+
             for (int i = 0; i <= numPoints; i++)
             {
-                var interp = (double)i / numPoints;
+                double t = (double)i / numPoints;
 
-                // Modifica la interpolación para ajustar la curvatura de la ruta
-                var curveFactor = Math.Pow(interp, 2); // Utiliza una función cuadrática para la curvatura
-
-                var newLat = (1 - interp) * startLat + interp * endLat;
-                var newLon = (1 - interp) * startLon + interp * endLon;
-
-                // Aplica el factor de curvatura a los puntos intermedios
-                newLat = (1 - curveFactor) * startLat + curveFactor * newLat;
-                newLon = (1 - curveFactor) * startLon + curveFactor * newLon;
+                // Fórmula de interpolación de Bézier cúbica modificada
+                double newLat = Math.Pow(1 - t, 3) * startLat + 3 * t * Math.Pow(1 - t, 2) * controlLat1 + 3 * Math.Pow(t, 2) * (1 - t) * controlLat2 + Math.Pow(t, 3) * endLat;
+                double newLon = Math.Pow(1 - t, 3) * startLon + 3 * t * Math.Pow(1 - t, 2) * controlLon1 + 3 * Math.Pow(t, 2) * (1 - t) * controlLon2 + Math.Pow(t, 3) * endLon;
 
                 points.Add(new Tuple<double, double>(newLat, newLon));
             }
@@ -290,7 +290,7 @@ namespace Controllers.Controllers
                 var startLon = (double)aeropuertoOrigen.Longitud;
                 var endLat = (double)aeropuertoDestino.Latitud;
                 var endLon = (double)aeropuertoDestino.Longitud;
-                var numPoints = 50;
+                var numPoints = 300;
 
                 var points = CalcularPuntosIntermedios(startLat, startLon, endLat, endLon, numPoints);
                 var thread = new Thread(() => ActualizarUbicacionAvion(codigoVuelo, points));
