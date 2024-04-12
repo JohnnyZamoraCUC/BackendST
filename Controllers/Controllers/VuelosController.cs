@@ -231,25 +231,31 @@ namespace Controllers.Controllers
         }
 
 
-private List<Tuple<double, double>> CalcularPuntosIntermedios(double startLat, double startLon, double endLat, double endLon, int numPoints)
-{
-    var points = new List<Tuple<double, double>>();
+        private List<Tuple<double, double>> CalcularPuntosIntermedios(double startLat, double startLon, double endLat, double endLon, int numPoints)
+        {
+            var points = new List<Tuple<double, double>>();
 
-    for (int i = 1; i <= numPoints; i++)
-    {
-        var interp = (double)i / numPoints;
+            for (int i = 0; i <= numPoints; i++)
+            {
+                var interp = (double)i / numPoints;
 
-        // Modifica la interpolación para ajustar la curvatura (concavidad)
-        var curveFactor = Math.Sin(Math.PI * interp); // Utiliza la función seno para ajustar la curvatura
+                // Modifica la interpolación para ajustar la curvatura de la ruta
+                var curveFactor = Math.Pow(interp, 2); // Utiliza una función cuadrática para la curvatura
 
-        var newLat = (1 - curveFactor) * startLat + curveFactor * endLat;
-        var newLon = (1 - curveFactor) * startLon + curveFactor * endLon;
+                var newLat = (1 - interp) * startLat + interp * endLat;
+                var newLon = (1 - interp) * startLon + interp * endLon;
 
-        points.Add(new Tuple<double, double>(newLat, newLon));
-    }
+                // Aplica el factor de curvatura a los puntos intermedios
+                newLat = (1 - curveFactor) * startLat + curveFactor * newLat;
+                newLon = (1 - curveFactor) * startLon + curveFactor * newLon;
 
-    return points;
-}
+                points.Add(new Tuple<double, double>(newLat, newLon));
+            }
+
+            return points;
+        }
+
+
 
 
         [HttpGet]
@@ -284,7 +290,7 @@ private List<Tuple<double, double>> CalcularPuntosIntermedios(double startLat, d
                 var startLon = (double)aeropuertoOrigen.Longitud;
                 var endLat = (double)aeropuertoDestino.Latitud;
                 var endLon = (double)aeropuertoDestino.Longitud;
-                var numPoints = 300;
+                var numPoints = 50;
 
                 var points = CalcularPuntosIntermedios(startLat, startLon, endLat, endLon, numPoints);
                 var thread = new Thread(() => ActualizarUbicacionAvion(codigoVuelo, points));
