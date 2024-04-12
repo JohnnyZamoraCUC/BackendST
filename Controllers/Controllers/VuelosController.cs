@@ -231,20 +231,26 @@ namespace Controllers.Controllers
         }
 
 
-        private List<Tuple<double, double>> CalcularPuntosIntermedios(double startLat, double startLon, double endLat, double endLon, int numPoints)
-        {
-            var points = new List<Tuple<double, double>>();
+private List<Tuple<double, double>> CalcularPuntosIntermedios(double startLat, double startLon, double endLat, double endLon, int numPoints)
+{
+    var points = new List<Tuple<double, double>>();
 
-            for (int i = 1; i <= numPoints; i++)
-            {
-                var interp = (double)i / numPoints;
-                var newLat = (1 - interp) * startLat + interp * endLat;
-                var newLon = (1 - interp) * startLon + interp * endLon;
-                points.Add(new Tuple<double, double>(newLat, newLon));
-            }
+    for (int i = 1; i <= numPoints; i++)
+    {
+        var interp = (double)i / numPoints;
 
-            return points;
-        }
+        // Modifica la interpolación para ajustar la curvatura (concavidad)
+        var curveFactor = Math.Sin(Math.PI * interp); // Utiliza la función seno para ajustar la curvatura
+
+        var newLat = (1 - curveFactor) * startLat + curveFactor * endLat;
+        var newLon = (1 - curveFactor) * startLon + curveFactor * endLon;
+
+        points.Add(new Tuple<double, double>(newLat, newLon));
+    }
+
+    return points;
+}
+
 
         [HttpGet]
         [Route("api/Vuelos/CalcularPuntosIntermedios")]
