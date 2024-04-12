@@ -288,7 +288,12 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\AirbusA320.jpg" />
+    <Content Include="Images\AirbusA350.jpg" />
     <Content Include="Images\Boeing737.jpg" />
+    <Content Include="Images\Cessna172.jpg" />
+    <Content Include="Images\CRJ900.jpg" />
+    <Content Include="Images\EmbraerE190.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />

@@ -220,6 +220,17 @@ namespace Controllers.Controllers
                     // Avanzar al siguiente punto intermedio circularmente
                     index = (index + 1) % puntosIntermedios.Count;
 
+                    // Verificar si se alcanzó el último punto intermedio
+                    if (index == 0)
+                    {
+                        // Cambiar el estado del vuelo a "en tierra" (estado 1)
+                        vuelo.IdEstadoVuelo = 1;
+                        VuelosEntidad.SaveChanges();
+
+                        Console.WriteLine($"Avión en vuelo {codigoVuelo} ha llegado a su destino y está en tierra.");
+                        return; // Salir del bucle
+                    }
+
                     // Esperar 2 segundos antes de la próxima actualización
                     Thread.Sleep(2000); // Esperar 2000 milisegundos (equivalente a 2 segundos)
                 }
@@ -257,46 +268,52 @@ namespace Controllers.Controllers
 
 
 
-
         [HttpGet]
         [Route("api/Vuelos/CalcularPuntosIntermedios")]
         public IHttpActionResult CalcularPuntosIntermedios(string codigoVuelo)
         {
             try
             {
-                // Verificar el estado del vuelo antes de calcular puntos intermedios
-                var vuelo = VuelosEntidad.Vuelos.FirstOrDefault(v => v.NumeroVuelo == codigoVuelo);
-                if (vuelo == null)
+                while (true)
                 {
-                    return NotFound(); // Vuelo no encontrado
+                    // Verificar el estado del vuelo antes de calcular puntos intermedios
+                    var vuelo = VuelosEntidad.Vuelos.FirstOrDefault(v => v.NumeroVuelo == codigoVuelo);
+                    if (vuelo == null)
+                    {
+                        return NotFound(); // Vuelo no encontrado
+                    }
+
+                    var estadoVuelo = vuelo.IdEstadoVuelo;
+                    if (estadoVuelo != 3)
+                    {
+                        Thread.Sleep(1000); // Esperar 1 segundo antes de verificar de nuevo
+                        continue; // Volver a verificar el estado del vuelo
+                    }
+
+                    // Obtener coordenadas de origen y destino
+                    var aeropuertoOrigen = VuelosEntidad.Aeropuertos.FirstOrDefault(a => a.IdAeropuerto == vuelo.IDOrigen);
+                    var aeropuertoDestino = VuelosEntidad.Aeropuertos.FirstOrDefault(a => a.IdAeropuerto == vuelo.IDDestino);
+                    if (aeropuertoOrigen == null || aeropuertoDestino == null)
+                    {
+                        return NotFound(); // Aeropuertos no encontrados
+                    }
+
+                    // Calcular puntos intermedios entre las coordenadas de origen y destino
+                    var startLat = (double)aeropuertoOrigen.Latitud;
+                    var startLon = (double)aeropuertoOrigen.Longitud;
+                    var endLat = (double)aeropuertoDestino.Latitud;
+                    var endLon = (double)aeropuertoDestino.Longitud;
+                    var numPoints = 300;
+
+                    var points = CalcularPuntosIntermedios(startLat, startLon, endLat, endLon, numPoints);
+
+                    // Llamar a la función para actualizar la ubicación del avión en un hilo separado
+                    var thread = new Thread(() => ActualizarUbicacionAvion(codigoVuelo, points));
+                    thread.Start();
+
+                    // Devolver los puntos intermedios como resultado
+                    return Ok(points);
                 }
-
-                var estadoVuelo = vuelo.IdEstadoVuelo;
-                if (estadoVuelo != 3)
-                {
-                    return BadRequest("El vuelo no se encuentra en estado de vuelo.");
-                }
-
-                // Obtener coordenadas de origen y destino
-                var aeropuertoOrigen = VuelosEntidad.Aeropuertos.FirstOrDefault(a => a.IdAeropuerto == vuelo.IDOrigen);
-                var aeropuertoDestino = VuelosEntidad.Aeropuertos.FirstOrDefault(a => a.IdAeropuerto == vuelo.IDDestino);
-                if (aeropuertoOrigen == null || aeropuertoDestino == null)
-                {
-                    return NotFound(); // Aeropuertos no encontrados
-                }
-
-                // Calcular puntos intermedios entre las coordenadas de origen y destino
-                var startLat = (double)aeropuertoOrigen.Latitud;
-                var startLon = (double)aeropuertoOrigen.Longitud;
-                var endLat = (double)aeropuertoDestino.Latitud;
-                var endLon = (double)aeropuertoDestino.Longitud;
-                var numPoints = 300;
-
-                var points = CalcularPuntosIntermedios(startLat, startLon, endLat, endLon, numPoints);
-                var thread = new Thread(() => ActualizarUbicacionAvion(codigoVuelo, points));
-                thread.Start();
-                // Devolver los puntos intermedios como resultado
-                return Ok(points);
             }
             catch (Exception ex)
             {
@@ -304,6 +321,7 @@ namespace Controllers.Controllers
                 return InternalServerError();
             }
         }
+
     }
 }
 
