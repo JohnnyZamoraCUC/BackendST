@@ -145,6 +145,35 @@ namespace Controllers.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/Vuelos/ObtenerPUbicacionavion")]
+        public IHttpActionResult ObtenerPUbicacionavion(string codigoVuelo)
+        {
+            try
+            {
+     
+                var result = (from vuelo in VuelosEntidad.Vuelos
+
+                              join aerolinea in VuelosEntidad.Aerolineas on vuelo.IdAerolinea equals aerolinea.IdAerolinea
+                              join aeronave in VuelosEntidad.Aeronaves on vuelo.IDAeronave equals aeronave.IdAeronave
+                              where vuelo.NumeroVuelo == codigoVuelo
+                              select new
+                              {
+                              
+                                  AeronaveLon = aeronave.Longitud,
+                                  AeronaveLat = aeronave.Latitud,
+                           
+                              }).ToList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Registrar el error o notificar de alguna manera
+                Console.WriteLine($"Error al obtener el vuelo con código {codigoVuelo}: {ex.Message}");
+                return InternalServerError();
+            }
+        }
         [HttpPut]
         [Route("api/Vuelos/ActualizarEstado/{id}")]
         public IHttpActionResult ActualizarEstado(int id, [FromBody] int nuevoIdEstado)
@@ -303,7 +332,7 @@ namespace Controllers.Controllers
                     var startLon = (double)aeropuertoOrigen.Longitud;
                     var endLat = (double)aeropuertoDestino.Latitud;
                     var endLon = (double)aeropuertoDestino.Longitud;
-                    var numPoints = 300;
+                    var numPoints = 40;
 
                     var points = CalcularPuntosIntermedios(startLat, startLon, endLat, endLon, numPoints);
 
