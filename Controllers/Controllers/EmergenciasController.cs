@@ -47,8 +47,9 @@ namespace Controllers.Controllers
                 return InternalServerError();
             }
         }
+
         [HttpGet]
-        [Route("api/Emergencia/ObtenerReportes")]
+        [Route("api/Emergencias/ObtenerReportes")]
         public IHttpActionResult ObtenerReportes()
         {
             try
@@ -87,61 +88,40 @@ namespace Controllers.Controllers
             }
         }
         [HttpGet]
-        [Route("api/Emergencia/RealizarReportes")]
-        public IHttpActionResult RealizarReportes()
+        [Route("api/Emergencias/EmergenciasPorNumeroVuelo")]
+        public IHttpActionResult EmergenciasPorNumeroVuelo(string numeroVuelo)
         {
             try
             {
+                // Realizar un join entre Emergencias y Vuelos para obtener las emergencias por número de vuelo
+                var emergencias = (from em in EmergenciasEntidad.Emergencias
+                                   join v in EmergenciasEntidad.Vuelos on em.idvuelo equals v.IdVuelo
+                                   where v.NumeroVuelo == numeroVuelo
+                                   select new GetEmergencias
+                                   {
+                                       IdEmergencia = em.IdEmergencia,
+                                       FechaHoraInicio = (DateTime)em.FechaHoraInicio,
+                                       FechaHoraFin = (DateTime)em.FechaHoraFin,
+                                       IdTipoProcedimiento = (int)em.idTipoProcedimiento,
+                                       idvuelo = (int)em.idvuelo,
+                                       idaltitudemergencia = (int)em.idaltitudemergencia,
+                                       idprioridadaterrizaje = em.idprioridadaterrizaje,
+                                       DescripcionReportada = em.DescripcionReportada,
+                                       IDUsuario = (int)em.IDUsuario
+                                       // Agrega más propiedades según sea necesario
+                                   }).ToList();
 
-
-                var result = (from Reportes in EmergenciasEntidad.Emergencias
-
-                              join TipoEmergencia in EmergenciasEntidad.TipoEmergencia on Reportes.idTipoProcedimiento equals TipoEmergencia.IdTipoEmergencia
-                              join Vuelo in EmergenciasEntidad.Vuelos on Reportes.idvuelo equals Vuelo.IdVuelo
-                              join AltitudE in EmergenciasEntidad.AltitudEmergencia on Reportes.idaltitudemergencia equals AltitudE.IdAltitudEmergencia
-                              join PrioridadA in EmergenciasEntidad.PrioridadesAterrizajes on Reportes.idprioridadaterrizaje equals PrioridadA.IdPrioridadAterrizaje
-                              join Usuario in EmergenciasEntidad.Usuarios on Reportes.IDUsuario equals Usuario.IdUsuario
-
-                              select new
-                              {
-                                  Reportes.IdEmergencia,
-                                  Reportes.FechaHoraInicio,
-                                  Reportes.FechaHoraFin,
-                                  Reportes.DescripcionReportada,
-                                  DatoTipoE = TipoEmergencia.Descripcion,
-                                  DatoVuelo = Vuelo.NumeroVuelo,
-                                  DatoAltitud = AltitudE.Altitud,
-                                  DatoPrioridad = PrioridadA.IdPrioridadAterrizaje,
-                                  DatoUsuario = Usuario.Nombre,
-                                  DatoUsuario2 = Usuario.Apellido
-
-                              }).ToList();
-
-                return Ok(result);
+                return Ok(emergencias);
             }
             catch (Exception ex)
             {
-                // Registrar el error o notificar de alguna manera
-                Console.WriteLine($"Error al obtener todos los vuelos: {ex.Message}");
+                Console.WriteLine($"Error al obtener las emergencias por número de vuelo {numeroVuelo}: {ex.Message}");
                 return InternalServerError();
             }
         }
 
 
-        /*
-     {
-  "IdEmergencia": 1,
-  "FechaHoraInicio": "2024-04-07T02:27:14.396",
-  "FechaHoraFin": "2024-04-07T02:27:14.396",
-  "idTipoProcedimiento": 1,
-  "idvuelo": 1,
-  "idaltitudemergencia": 1,
-  "idprioridadaterrizaje": "A",
-  "DescripcionReportada": "Reporte Test",
-  "IDUsuario": 1
-}
 
-*/
         [HttpPost]
         [Route("api/Emergencias/CrearEmergencia")]
         public IHttpActionResult CrearEmergencia([FromBody] RegistroE emergencia)
@@ -187,6 +167,13 @@ namespace Controllers.Controllers
                 return InternalServerError();
             }
         }
+
+
+   
+
+
+        
+
         [HttpGet]
         [Route("api/Emergencias/PrioridadAterizaje")]
         public IHttpActionResult PrioridadAterizaje()

@@ -145,6 +145,7 @@ namespace Controllers.Controllers
             }
         }
 
+
         [HttpGet]
         [Route("api/Vuelos/ObtenerPUbicacionavion")]
         public IHttpActionResult ObtenerPUbicacionavion(string codigoVuelo)

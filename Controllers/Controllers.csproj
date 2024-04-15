@@ -273,6 +273,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\EquiposEmergencia.cs" />
+    <Compile Include="Models\GetEmergencias.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\RegistroE.cs" />
     <Compile Include="Models\TokenModel.cs" />
