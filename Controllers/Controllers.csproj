@@ -274,6 +274,7 @@
     </Compile>
     <Compile Include="Models\SecuenciaAterrizaje.cs" />
     <Compile Include="Models\EquiposEmergencia.cs" />
+    <Compile Include="Models\GetEmergencias.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\Aterrizaje.cs" />
     <Compile Include="Models\RegistroE.cs" />
