@@ -272,8 +272,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SecuenciaAterrizaje.cs" />
     <Compile Include="Models\EquiposEmergencia.cs" />
     <Compile Include="Models\Label.cs" />
+    <Compile Include="Models\Aterrizaje.cs" />
     <Compile Include="Models\RegistroE.cs" />
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Models\Usuario.cs" />
