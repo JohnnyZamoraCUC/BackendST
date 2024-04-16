@@ -168,11 +168,62 @@ namespace Controllers.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("api/Emergencias/ActualizarEmergenciaPorNumeroVuelo/{numeroVuelo}")]
+        public IHttpActionResult ActualizarEmergenciaPorNumeroVuelo(string numeroVuelo, [FromBody] RegistroE emergencia)
+        {
+            try
+            {
+                if (emergencia == null)
+                {
+                    return BadRequest("Los datos de la emergencia son nulos.");
+                }
 
-   
+                // Buscar el idvuelo correspondiente al número de vuelo proporcionado
+                var vuelo = EmergenciasEntidad.Vuelos.FirstOrDefault(v => v.NumeroVuelo == numeroVuelo);
+
+                if (vuelo == null)
+                {
+                    return NotFound();
+                }
+
+                // Obtener el idvuelo del vuelo encontrado
+                int idvuelo = vuelo.IdVuelo;
+
+                // Buscar la emergencia por idvuelo
+                var emergenciaExistente = EmergenciasEntidad.Emergencias.FirstOrDefault(e => e.idvuelo == idvuelo);
+
+                if (emergenciaExistente == null)
+                {
+                    return NotFound();
+                }
+
+                // Actualizar los campos de la emergencia existente con los nuevos valores
+                emergenciaExistente.FechaHoraInicio = emergencia.FechaHoraInicio;
+                emergenciaExistente.FechaHoraFin = emergencia.FechaHoraFin;
+                emergenciaExistente.idTipoProcedimiento = emergencia.idTipoProcedimiento;
+                emergenciaExistente.idaltitudemergencia = emergencia.idaltitudemergencia;
+                emergenciaExistente.idprioridadaterrizaje = emergencia.idprioridadaterrizaje;
+                emergenciaExistente.DescripcionReportada = emergencia.DescripcionReportada;
+                emergenciaExistente.IDUsuario = emergencia.IDUsuario;
+
+                // Guardar los cambios en la base de datos
+                EmergenciasEntidad.SaveChanges();
+
+                return Ok("Emergencia actualizada exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                // Registrar el error o notificar de alguna manera
+                Console.WriteLine($"Error al actualizar emergencia: {ex.Message}");
+                return InternalServerError();
+            }
+        }
 
 
-        
+
+
+
 
         [HttpGet]
         [Route("api/Emergencias/PrioridadAterizaje")]

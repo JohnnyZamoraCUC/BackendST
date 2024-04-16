@@ -316,8 +316,9 @@ namespace Controllers.Controllers
                     var estadoVuelo = vuelo.IdEstadoVuelo;
                     if (estadoVuelo != 3)
                     {
-                        Thread.Sleep(1000); // Esperar 1 segundo antes de verificar de nuevo
-                        continue; // Volver a verificar el estado del vuelo
+                        // El avión no está en vuelo
+                        Console.WriteLine($"El avión con código {codigoVuelo} no está en vuelo. No se pueden generar coordenadas intermedias.");
+                        return BadRequest("El avión no está en vuelo."); // Se podría retornar un BadRequest indicando el problema
                     }
 
                     // Obtener coordenadas de origen y destino
@@ -351,6 +352,7 @@ namespace Controllers.Controllers
                 return InternalServerError();
             }
         }
+
 
     }
 }
