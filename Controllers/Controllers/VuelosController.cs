@@ -37,7 +37,7 @@ namespace Controllers.Controllers
                               join prioridad in VuelosEntidad.PrioridadesVuelos on vuelo.IdPrioridad equals prioridad.IdPrioridad
                               join tipoVuelo in VuelosEntidad.TipoVuelo on vuelo.IDTipovuelo equals tipoVuelo.IdTipoVuelo
                               join origen in VuelosEntidad.Ciudades on vuelo.IDOrigen equals origen.IdCiudad
-                              join destino in VuelosEntidad.Ciudades on vuelo.IDDestino equals destino.IdCiudad
+                              join destino in VuelosEntidad.Aeropuertos on vuelo.IDDestino equals destino.IdAeropuerto
                               join aeropuertoOrigenlatitudLongitud in VuelosEntidad.Aeropuertos on vuelo.IDOrigen equals aeropuertoOrigenlatitudLongitud.IdAeropuerto
                               join aeropuertoDestinolatitudLongitud in VuelosEntidad.Aeropuertos on vuelo.IDDestino equals aeropuertoDestinolatitudLongitud.IdAeropuerto
                               select new
@@ -55,7 +55,7 @@ namespace Controllers.Controllers
                                   Prioridad = prioridad.Nombre,
                                   TipoVuelo = tipoVuelo.Descripcion,
                                   Origen = origen.NombreCiudad,
-                                  Destino = destino.NombreCiudad,
+                                  Destino = destino.Nombre,
                                   AeropuertoOLatitud = aeropuertoOrigenlatitudLongitud.Latitud,
                                   AeropuertoOLontigud = aeropuertoOrigenlatitudLongitud.Longitud,
                                   AeropuertoDLatitud = aeropuertoDestinolatitudLongitud.Latitud,
