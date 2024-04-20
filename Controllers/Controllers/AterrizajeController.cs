@@ -126,7 +126,11 @@ namespace Controllers.Controllers
                                   Origen = origen.NombreCiudad,
                                   Destino = destino.NombreCiudad,
                                   Lat = aeronave.Latitud,
-                                  lon = aeronave.Longitud
+                                  lon = aeronave.Longitud,
+                                  altura = aeronave.Altura,
+                                  CapacidadCombustible = aeronave.CapacidadCombustible,
+                                  VelocidadMaxima = aeronave.VelocidadMaxima,
+                                  Estado = estadoVuelo.Estado
                               }).ToList();
                 return Ok(result);
             }
@@ -286,8 +290,8 @@ namespace Controllers.Controllers
         }
 
         [HttpPost]
-        [Route("api/Emergencias/CrearSecuencia")]
-        public IHttpActionResult Secuencia([FromBody] Models.SecuenciaAterrizaje InfoSecuencia)
+        [Route("api/Aterrizaje/CrearSecuencia")]
+        public IHttpActionResult CrearSecuencia([FromBody] Models.SecuenciaAterrizaje InfoSecuencia)
         {
             try
             {
@@ -295,12 +299,6 @@ namespace Controllers.Controllers
                 {
                     return BadRequest("Los datos de la secuencia son nulos.");
                 }
-
-               /* int ultimoIdClima = VuelosEntidad.SecuenciaAterrizaje
-                   .OrderByDescending(e => e.)
-                   .Select(e => e.IdInformacionMetereologica)
-                   .FirstOrDefault();
-                int nuevoIdClima = ultimoIdClima + 1;*/
 
                 var nuevo = new ClasesData.SecuenciaAterrizaje
                 {
@@ -329,8 +327,8 @@ namespace Controllers.Controllers
         }
 
         [HttpPost]
-        [Route("api/Emergencias/CrearAterrizaje")]
-        public IHttpActionResult Secuencia([FromBody] Aterrizaje InfoAterrizaje)
+        [Route("api/Aterrizaje/CrearAterrizaje")]
+        public IHttpActionResult CrearAterrizaje([FromBody] Models.Aterrizaje InfoAterrizaje)
         {
             
             try
@@ -343,10 +341,10 @@ namespace Controllers.Controllers
                 var nuevo = new ClasesData.Aterrizajes
                 {
                     IdAterrizaje = InfoAterrizaje.IdAterrizaje,
-                    IDSecuencia = InfoAterrizaje.IdSecuencia,
                     IdDatosMinimos = InfoAterrizaje.IdDatosMinimos,
                     IdEstadoPista = InfoAterrizaje.IdEstadoPista,
-                    idemergencia = InfoAterrizaje.idemergencia,
+                    idemergencia = InfoAterrizaje.Idemergencia,
+                    IDSecuencia = InfoAterrizaje.IdSecuencia,
                     PermisoAterrizaje = InfoAterrizaje.PermisoAterrizaje
                 };
 
@@ -366,5 +364,52 @@ namespace Controllers.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("api/Aterrizaje/EliminarAproximacion")]
+        public IHttpActionResult EliminarLabel(int id)
+        {
+            try
+            {
+                var borrar = VuelosEntidad.Aproximaciones.FirstOrDefault(l => l.IdAproximacion == id);
+                if (borrar == null)
+                {
+                    return NotFound();
+                }
+
+                VuelosEntidad.Aproximaciones.Remove(borrar);
+                VuelosEntidad.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al eliminar la etiqueta: {ex.Message}");
+                return InternalServerError();
+            }
+        }
+
+        [HttpPut]
+        [Route("api/Aterrizaje/AterrizarVuelo")]
+        public IHttpActionResult ActualizarLabel(int id)
+        {
+            try
+            {
+                var editar = VuelosEntidad.Vuelos.FirstOrDefault(l => l.IdVuelo == id);
+                if (editar == null)
+                {
+                    return NotFound();
+                }
+                editar.IdEstadoVuelo = 4;
+
+                VuelosEntidad.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al actualizar la etiqueta: {ex.Message}");
+                return InternalServerError();
+            }
+        }
     }
 }

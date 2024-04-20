@@ -8,10 +8,10 @@ namespace Controllers.Models
     public class Aterrizaje
     {
         public int IdAterrizaje { get; set; }
-        public string IdSecuencia { get; set; }
         public int IdDatosMinimos { get; set; }
         public int IdEstadoPista { get; set; }
-        public int idemergencia { get; set; }
+        public int Idemergencia { get; set; }
+        public string IdSecuencia { get; set; }
         public bool PermisoAterrizaje { get; set; }
     }
 }

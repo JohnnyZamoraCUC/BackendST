@@ -25,5 +25,10 @@ namespace ClasesData
         public virtual Emergencias Emergencias { get; set; }
         public virtual EstadoPista EstadoPista { get; set; }
         public virtual SecuenciaAterrizaje SecuenciaAterrizaje { get; set; }
+
+        public static implicit operator Aterrizajes(Aterrizajes v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
