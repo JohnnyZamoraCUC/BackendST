@@ -26,9 +26,5 @@ namespace ClasesData
         public virtual EstadoPista EstadoPista { get; set; }
         public virtual SecuenciaAterrizaje SecuenciaAterrizaje { get; set; }
 
-        public static implicit operator Aterrizajes(Aterrizajes v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

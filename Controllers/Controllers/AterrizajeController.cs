@@ -36,8 +36,10 @@ namespace Controllers.Controllers
                               join Aerolinea in VuelosEntidad.Aerolineas on Vuelo.IdAerolinea equals Aerolinea.IdAerolinea
                               join Aeropuerto in VuelosEntidad.Aeropuertos on Vuelo.IDDestino equals Aeropuerto.IdAeropuerto
                               where Aeropuerto.Nombre == Aeroport //filtrar solo naves listas para aterrizar
+                              where Aproximaciones.IdTipoAproximacion == 1
                               select new
                               {
+                                  id = Aproximaciones.IdAproximacion,
                                   Aerolinea = Aerolinea.NombreAerolinea,
                                   Vuelo = Vuelo.NumeroVuelo,
                                   NombrePiloto = piloto.Nombre,
@@ -114,7 +116,7 @@ namespace Controllers.Controllers
                               where vuelo.NumeroVuelo == codigoVuelo
                               select new
                               {
-                                  idaero = aeronave.IdAeronave,
+                                  idaero = vuelo.IdVuelo,
                                   NumVuelo = vuelo.NumeroVuelo,
                                   Aerolinea = aerolinea.NombreAerolinea,
                                   Aeronave = aeronave.Modelo,
@@ -136,7 +138,6 @@ namespace Controllers.Controllers
             }
             catch (Exception ex)
             {
-                // Registrar el error o notificar de alguna manera
                 Console.WriteLine($"Error al obtener el vuelo con código {codigoVuelo}: {ex.Message}");
                 return InternalServerError();
             }
@@ -215,7 +216,7 @@ namespace Controllers.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener datos minimos: {ex.Message}");
+                Console.WriteLine($"Error al obtener codigos de secuencia: {ex.Message}");
                 return InternalServerError();
             }
         }
@@ -236,7 +237,7 @@ namespace Controllers.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener datos minimos: {ex.Message}");
+                Console.WriteLine($"Error al obtener codigos de aterrizaje: {ex.Message}");
                 return InternalServerError();
             }
         }
@@ -263,11 +264,12 @@ namespace Controllers.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener datos minimos: {ex.Message}");
+                Console.WriteLine($"Error al obtener clima: {ex.Message}");
                 return InternalServerError();
             }
         }
-
+        
+        //Obtiene prioridades
         [HttpGet]
         [Route("api/Aterrizaje/Prioridad")]
         public IHttpActionResult ObtenerPrioridad()
@@ -284,11 +286,12 @@ namespace Controllers.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener datos minimos: {ex.Message}");
+                Console.WriteLine($"Error al obtener prioridades: {ex.Message}");
                 return InternalServerError();
             }
         }
 
+        //Crea secuencia de aterrizaje
         [HttpPost]
         [Route("api/Aterrizaje/CrearSecuencia")]
         public IHttpActionResult CrearSecuencia([FromBody] Models.SecuenciaAterrizaje InfoSecuencia)
@@ -309,23 +312,21 @@ namespace Controllers.Controllers
                     Instrucciones_especiales = InfoSecuencia.Instrucciones_especiales,
                     Prioridad = InfoSecuencia.Prioridad
                 };
-
-                // Agregar la nueva emergencia al contexto y guardar cambios en la base de datos
                 VuelosEntidad.Configuration.ValidateOnSaveEnabled = false;
                 VuelosEntidad.SecuenciaAterrizaje.Add(nuevo);
                 VuelosEntidad.SaveChanges();
                 VuelosEntidad.Configuration.ValidateOnSaveEnabled = true;
 
-                return Ok("Clima registrado.");
+                return Ok("Secuencia de aterrizaje registrada.");
             }
             catch (Exception ex)
             {
-                // Registrar el error o notificar de alguna manera
-                Console.WriteLine($"Error al registrar clima: {ex.Message}");
+                Console.WriteLine($"Error al registrar secuencia de aterrizaje: {ex.Message}");
                 return InternalServerError();
             }
         }
 
+        //Crea Aterrizaje
         [HttpPost]
         [Route("api/Aterrizaje/CrearAterrizaje")]
         public IHttpActionResult CrearAterrizaje([FromBody] Models.Aterrizaje InfoAterrizaje)
@@ -347,8 +348,6 @@ namespace Controllers.Controllers
                     IDSecuencia = InfoAterrizaje.IdSecuencia,
                     PermisoAterrizaje = InfoAterrizaje.PermisoAterrizaje
                 };
-
-                // Agregar la nueva emergencia al contexto y guardar cambios en la base de datos
                 VuelosEntidad.Configuration.ValidateOnSaveEnabled = false;
                 VuelosEntidad.Aterrizajes.Add(nuevo);
                 VuelosEntidad.SaveChanges();
@@ -358,15 +357,15 @@ namespace Controllers.Controllers
             }
             catch (Exception ex)
             {
-                // Registrar el error o notificar de alguna manera
-                Console.WriteLine($"Error al registrar clima: {ex.Message}");
+                Console.WriteLine($"Error al registrar Aterrizaje: {ex.Message}");
                 return InternalServerError();
             }
         }
 
+        //Elimina aproximaciones
         [HttpDelete]
         [Route("api/Aterrizaje/EliminarAproximacion")]
-        public IHttpActionResult EliminarLabel(int id)
+        public IHttpActionResult EliminarAproximacion(int id)
         {
             try
             {
@@ -383,14 +382,15 @@ namespace Controllers.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al eliminar la etiqueta: {ex.Message}");
+                Console.WriteLine($"Error al eliminar aproximacion: {ex.Message}");
                 return InternalServerError();
             }
         }
 
+        //Actualiza el vuelo para ponerlo como aterrizado
         [HttpPut]
         [Route("api/Aterrizaje/AterrizarVuelo")]
-        public IHttpActionResult ActualizarLabel(int id)
+        public IHttpActionResult ActualizarVuelo(int id)
         {
             try
             {
@@ -407,7 +407,7 @@ namespace Controllers.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al actualizar la etiqueta: {ex.Message}");
+                Console.WriteLine($"Error al actualizar vuelo: {ex.Message}");
                 return InternalServerError();
             }
         }
